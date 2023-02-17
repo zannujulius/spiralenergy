@@ -87,7 +87,7 @@ const ResetPassword = () => {
                 Need help with you account?
               </div>
               <Link
-                to="/login"
+                to="/"
                 className="underline w-100 block cursor-pointer text-sm font-thin text-secondary text-center"
               >
                 Have an account? Log in instead.

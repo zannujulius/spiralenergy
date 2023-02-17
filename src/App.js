@@ -5,14 +5,19 @@ import Login from "./screens/Auth/Login";
 import { Route, Routes } from "react-router-dom";
 import ResetPassword from "./screens/Auth/ResetPassword";
 import ForgotPassword from "./screens/Auth/ForgotPassword";
+import CompleteRegistration from "./screens/Auth/CompleteRegistration";
 
 function App() {
   return (
     <div className="">
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route
+          path="/completeregistration"
+          element={<CompleteRegistration />}
+        />
       </Routes>
     </div>
   );
