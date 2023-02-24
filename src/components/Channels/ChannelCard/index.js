@@ -1,11 +1,30 @@
 import { Switch } from "antd";
 import ChannelImg from "../../../assets/png/channelimg.png";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
-
-const ChannelCard = () => {
+import ChannelOption from "../ChannelOption";
+import { useState } from "react";
+const ChannelCard = ({ data }) => {
+  const [modal, setmodal] = useState(false);
+  const [selectedchannel, setselectedchannel] = useState(null);
+  const option = ["Add to group", "Rename", "Recharge"];
   return (
     <div className="drop-shadow h-[220px] bg-white rounded flex flex-col items-center py-2 relative">
-      <div className="absolute right-[5px]">
+      <ChannelOption
+        selectedchannel={selectedchannel}
+        channelId={data?.channelId}
+        setselectedchannel={setselectedchannel}
+      />
+
+      <div
+        className="absolute right-[5px]"
+        onClick={() => {
+          if (selectedchannel) {
+            return setselectedchannel(null);
+          } else if (!selectedchannel) {
+            return setselectedchannel(data?.channelId);
+          }
+        }}
+      >
         <BiDotsHorizontalRounded size={21} />
       </div>
       <div className="text-center font-ligth text-primary text-sm">123kwh</div>
@@ -18,7 +37,7 @@ const ChannelCard = () => {
         </div>
       </div>
       <div className="text-center text-primary font-semibold text-[14px]">
-        Air conditioner...
+        {data?.name}
       </div>
       <div className="pt-2">
         <Switch

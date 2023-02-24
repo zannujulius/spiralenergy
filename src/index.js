@@ -9,6 +9,7 @@ import "antd/dist/antd.css";
 import "./ant.css";
 import "animate.css";
 import "react-circular-progressbar/dist/styles.css";
+import "animate.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
