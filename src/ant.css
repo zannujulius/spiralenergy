@@ -1,0 +1,12 @@
+.ant-switch {
+  background-color: #f8a091 !important;
+}
+
+.ant-switch-checked {
+  background-color: #32be32 !important;
+}
+
+.ant-table-cell {
+  padding: 10px !important;
+  text-align: center !important;
+}

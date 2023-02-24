@@ -5,6 +5,10 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import "antd/dist/antd.css";
+import "./ant.css";
+import "animate.css";
+import "react-circular-progressbar/dist/styles.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

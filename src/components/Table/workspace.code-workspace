@@ -1,0 +1,17 @@
+{
+  "folders": [
+	{
+		"path": "../../.."
+	},
+	{
+		"path": "../../../../duro/getripay-v2"
+	},
+	{
+		"path": "../../../../duro/getripay-merchant"
+	},
+	{
+		"path": "../../../../duro/getrisave"
+	}
+],
+  "settings": {}
+}

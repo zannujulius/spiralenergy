@@ -4,6 +4,7 @@ import {
   AiOutlineEye,
   AiOutlineKey,
   AiOutlineUser,
+  AiOutlineEyeInvisible,
 } from "react-icons/ai";
 import { Button } from "../../../components/Button";
 import { useState } from "react";
@@ -11,6 +12,7 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   const [resetpassword, setresetpassword] = useState(true);
+  const [eye, seteye] = useState(false);
   return (
     <div className="h-screen w-screen h-100 bg-gray-50 flex flex-row items-center justify-center">
       <div className="">
@@ -62,21 +64,47 @@ const Login = () => {
                   </div>
                   <div className="ml-2">
                     <input
-                      type={"text"}
-                      placeholder={"Enter your username"}
+                      type={eye ? "text" : "password"}
+                      placeholder={"Enter your password"}
                       className=" placeholder:text-sm placeholder:font-thin outline-none border-[0px]"
                     />
                   </div>
                 </div>
 
-                <div className="px-3 cursor-pointer">
-                  <AiOutlineEye color="text-primary" className="text-primary" />
-                </div>
+                {!eye ? (
+                  <div
+                    className="px-3 cursor-pointer"
+                    onClick={() => {
+                      seteye(!eye);
+                    }}
+                  >
+                    <AiOutlineEyeInvisible
+                      color="text-primary"
+                      className="text-primary"
+                    />
+                  </div>
+                ) : (
+                  <div
+                    className="px-3 cursor-pointer"
+                    onClick={() => {
+                      seteye(!eye);
+                    }}
+                  >
+                    <AiOutlineEye
+                      color="text-primary"
+                      className="text-primary"
+                    />
+                  </div>
+                )}
               </div>
             </div>
             {/* Button */}
             <div className=" w-100 mt-7">
-              <Button text={"Login"} loading={false} />
+              <Button
+                text={"Login"}
+                loading={false}
+                onClick={() => (window.location.href = "/dashboard")}
+              />
             </div>
 
             <div className="w-100 mt-4">

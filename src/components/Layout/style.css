@@ -1,0 +1,42 @@
+.layout-cover {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.l-content {
+  width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  position: relative;
+  top: 0;
+  left: 0;
+  /* background: #01010b; */
+}
+
+.side-nav {
+  width: auto;
+  height: 100vh;
+  background: #ffffff;
+}
+
+.l-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.l-content {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+@media (max-width: 700px) {
+  .side-nav {
+    display: none;
+  }
+}
