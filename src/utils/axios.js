@@ -4,13 +4,13 @@ import { getToken } from "./token";
 const controller = new AbortController();
 
 const instance = axios.create({
-  baseURL: "https://api.mms.ampere.plus/",
+  baseURL: "https://api.app.voltz.africa/",
 });
 
 instance.interceptors.request.use(async (config) => {
   try {
-    let token = await getToken("ampere_token");
-    let username = await getToken("ampere_username");
+    let token = await getToken("spiral_token");
+    let username = await getToken("spiral_username");
     if (config.data) {
       config.data.sessionid = token;
       config.data.callerid = username;

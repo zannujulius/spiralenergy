@@ -15,11 +15,12 @@ export const Button = ({
     margin: 0 auto;
     border-color: red;
   `;
+  // console.log(loading, "process");
   return (
     <button
       onClick={onClick}
       disabled={loading}
-      className="w-100 h-[45px] flex items-center justify-center cursor-pointer rounded bg-gray-900"
+      className="w-100 h-[50px] flex items-center justify-center cursor-pointer rounded bg-gray-900"
       style={{
         // background: bg || themeColor.black,
         width: "100%",

@@ -10,12 +10,17 @@ import UserDashboard from "./screens/Dashboard/UserDashboard";
 import UserRoles from "./screens/Roles/UserRoles";
 import SalesAgentDashboard from "./screens/Dashboard/SalesAgentDashboard";
 import SysAdminDashboard from "./screens/Dashboard/SysAdminDashboard";
-
+import CreateAccount from "./screens/Auth/CreateAccount";
+import toast, { Toaster } from "react-hot-toast";
+import EmailVerification from "./screens/Auth/EmailVerification";
 function App() {
   return (
     <div className="">
       <Routes>
-        <Route path="/" element={<Login />} />
+        {/* New */}
+        <Route path="/createaccount" element={<CreateAccount />} />
+        <Route path="/emailverification" element={<EmailVerification />} />
+        {/* <Route path="/" element={<Login />} /> */}
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route
@@ -29,6 +34,7 @@ function App() {
         {/* user roles */}
         <Route path="userroles" element={<UserRoles />} />
       </Routes>
+      <Toaster />
     </div>
   );
 }

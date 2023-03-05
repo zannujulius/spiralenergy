@@ -11,29 +11,31 @@ import { Link } from "react-router-dom";
 
 const CompleteRegistration = () => {
   const [resetpassword, setresetpassword] = useState(true);
+
   return (
-    <div className="h-screen w-screen h-100 bg-gray-50 flex flex-row items-center justify-center">
-      <div className="">
+    <div className="h-screen  bg-gray-50 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 place-items-center place-content-center gap-10">
+      <div className="w-full h-[600px] bg-white hidden md:hidden lg:block"></div>
+      <div className=" w-full">
         <div className="">
-          <div className=""></div>
           <div className="text-center text-primary font-semibold text-2xl pb-4">
             Spiral Energy
           </div>
         </div>
-        <div className="bg-white w-[320px] md:w-[400px] h-auto drop-shadow-md rounded-md p-6">
-          <div className="font-thin text-center text-lg text-gray-600">
-            Fill the fields to complete your registration.
+        <div className=" w-[full] h-auto rounded-md p-6">
+          <div className="font-light text-center text-lg text-gray-600">
+            Fill the fields to register.
           </div>
           <hr className="my-4" />
-          <div className="w-100">
+          <div className="">
             {/* Firstname */}
             <div className="">
               <label className="text-primary font-normal text-sm">
                 Firstname
               </label>
-              <div className="flex items-center w-100 border-[1px] rounded-sm border-gray-300 mt-2 h-[45px]">
+              <div className="flex bg-white items-center w-100 border-[1px] rounded-sm border-gray-300 mt-2 h-[50px]">
                 <div className="d-inline flex items-center justify-center px-2">
                   <AiOutlineUser
+                    size={20}
                     color="text-primary"
                     className="text-primary"
                   />
@@ -48,13 +50,14 @@ const CompleteRegistration = () => {
               </div>
             </div>
             {/* Lastname */}
-            <div className="mt-2">
+            <div className="mt-4">
               <label className="text-primary font-normal text-sm">
                 Lastname
               </label>
-              <div className="flex items-center w-100 border-[1px] rounded-sm border-gray-300 mt-2 h-[45px]">
+              <div className="flex bg-white items-center w-100 border-[1px] rounded-sm border-gray-300 mt-2 h-[50px]">
                 <div className="d-inline flex items-center justify-center px-2">
                   <AiOutlineUser
+                    size={20}
                     color="text-primary"
                     className="text-primary"
                   />
@@ -69,13 +72,14 @@ const CompleteRegistration = () => {
               </div>
             </div>
             {/* Phone */}
-            <div className="mt-2">
+            <div className="mt-4">
               <label className="text-primary font-normal text-sm">
                 Phone number
               </label>
-              <div className="flex items-center w-100 border-[1px] rounded-sm border-gray-300 mt-2 h-[45px]">
+              <div className="flex bg-white items-center w-100 border-[1px] rounded-sm border-gray-300 mt-2 h-[50px] ">
                 <div className="d-inline flex items-center justify-center px-2">
                   <AiOutlinePhone
+                    size={20}
                     color="text-primary"
                     className="text-primary"
                   />
@@ -89,7 +93,6 @@ const CompleteRegistration = () => {
                 </div>
               </div>
             </div>
-
             {/* Button */}
             <div className=" w-100 mt-7">
               <Button text={"Continue"} loading={false} />
@@ -101,9 +104,10 @@ const CompleteRegistration = () => {
               </div>
               <Link
                 to="/"
-                className="underline w-100 block cursor-pointer text-sm font-thin text-secondary text-center"
+                className="underline w-100 block cursor-pointer text-sm font-light text-secondary text-center"
               >
-                Have an account? Log in instead.
+                Have an account?
+                <span className="font-semibold text-1xl"> Log in instead.</span>
               </Link>
             </div>
           </div>
