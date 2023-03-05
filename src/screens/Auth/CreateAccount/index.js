@@ -66,10 +66,10 @@ const CreateAccount = () => {
 
   return (
     <div className="h-screen  bg-gray-50 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 place-items-center place-content-center gap-10">
-      <div className="w-full h-[600px] bg-white hidden md:hidden lg:block"></div>
+      <div className="w-full h-[600px] bg-white hidden md:hidden lg:block border "></div>
       <div className="w-full md:w-[500px] mx-auto">
         <div className="">
-          <div className="text-center text-primary font-semibold text-2xl pb-4">
+          <div className="text-center text-primary font-semibold text-2xl">
             Spiral Energy
           </div>
         </div>
@@ -197,8 +197,8 @@ const CreateAccount = () => {
                 Need help with you account?
               </div>
               <Link
-                to="/"
-                className="underline w-100 block cursor-pointer text-sm font-light text-secondary text-center"
+                to="/login"
+                className="underline pl-2 w-100 block cursor-pointer text-sm font-light text-secondary text-center"
               >
                 Have an account?
                 <span className="font-semibold text-1xl"> Log in instead.</span>

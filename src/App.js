@@ -13,6 +13,7 @@ import SysAdminDashboard from "./screens/Dashboard/SysAdminDashboard";
 import CreateAccount from "./screens/Auth/CreateAccount";
 import toast, { Toaster } from "react-hot-toast";
 import EmailVerification from "./screens/Auth/EmailVerification";
+import SignIn from "./screens/Auth/SignIn";
 function App() {
   return (
     <div className="">
@@ -20,6 +21,8 @@ function App() {
         {/* New */}
         <Route path="/createaccount" element={<CreateAccount />} />
         <Route path="/emailverification" element={<EmailVerification />} />
+        <Route path="/login" element={<SignIn />} />
+
         {/* <Route path="/" element={<Login />} /> */}
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
