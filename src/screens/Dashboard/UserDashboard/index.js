@@ -9,6 +9,7 @@ import AddToGroup from "../../../components/Channels/Groups/AddToGroup";
 import { useState } from "react";
 import ChannelCard from "../../../components/Channels/ChannelCard";
 import AddMeter from "../../../components/Meter/AddMeter";
+import MUserDashboard from "../../../screensMobile/MobileDashboard/MUserDashboard";
 
 const UserDashboard = () => {
   const [modal, setmodal] = useState({
@@ -39,75 +40,80 @@ const UserDashboard = () => {
   };
 
   return (
-    <Layout>
-      {groupmodal && <AddToGroup closeBtn={setgroupmodal} />}
-      {metermodal && <AddMeter closeBtn={setmetermodal} />}
-      <div className="pb-[200px]">
-        <div className="flex flex-wrap items-center justify-between mt-4">
-          <div className="">
-            <div className="text-primary font-semibold text-[17px]  ">
-              <span className="text-3xl ">⛅</span> Welcome James
-            </div>
-            <div className="pl-9">
-              Overview of all your utilities you manage.
-            </div>
-          </div>
-          <Link to="/userroles" className="lg:w-[190px] w-[100%] my-4 block">
-            <Button text={"Manage account"} />
-          </Link>
-        </div>
-        <div className=" mt-8">
-          <div className="flex items-center justify-between px-2">
-            <div className="font-semibold text-primary">Grouped Channels</div>
-            <div
-              className="flex items-center justify-center cursor-pointer "
-              onClick={() => setgroupmodal(true)}
-            >
-              <div className="flex items-center justify-center">
-                <IoAddCircleOutline className="text-secondary" />
-              </div>
-              <div className="text-secondary pl-1">New group</div>
-            </div>
-          </div>
-          <div className="mt-4 max-w-full overflow-x-scroll overflow-y-hidden w-[100%]">
-            <div className="flex items-start overflow-x-scroll overflow-y-hidden w-[2000px]">
-              {Array.from(Array(7)).map((_, i) => (
-                <ChannelPill key={i} />
-              ))}
-              <ChannelMoreBtn />
-            </div>
-          </div>
-        </div>
-        <hr className="my-6" />
-        <div className="">
-          <div className="flex items-center justify-between px-2">
-            <div className="font-semibold text-primary">Your Channels</div>
-            <div className="flex items-center justify-center cursor-pointer  ">
-              <div className="flex items-center justify-center">
-                <IoAddCircleOutline className="text-secondary" />
-              </div>
-              <div
-                className="text-secondary pl-1"
-                onClick={() => setmetermodal(true)}
-              >
-                Add Meter
-              </div>
-            </div>
-          </div>
-          <div className="mt-4 max-w-full">
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-8 px-2 py-2">
-              {[
-                { channelId: "HSXN233333", name: "Buld" },
-                { channelId: "0892348k93", name: "Socket" },
-                { channelId: "jsuh277700", name: "Pumping Machine" },
-              ].map((i) => (
-                <ChannelCard key={i?.channelId} data={i} />
-              ))}
-            </div>
-          </div>
-        </div>
+    <>
+      <div className="">
+        <MUserDashboard />
       </div>
-    </Layout>
+      <Layout>
+        {groupmodal && <AddToGroup closeBtn={setgroupmodal} />}
+        {metermodal && <AddMeter closeBtn={setmetermodal} />}
+        <div className="pb-[200px]">
+          <div className="flex flex-wrap items-center justify-between mt-4">
+            <div className="">
+              <div className="text-primary font-semibold text-[17px]  ">
+                <span className="text-3xl ">⛅</span> Welcome James
+              </div>
+              <div className="pl-9">
+                Overview of all your utilities you manage.
+              </div>
+            </div>
+            <Link to="/userroles" className="lg:w-[190px] w-[100%] my-4 block">
+              <Button text={"Manage account"} />
+            </Link>
+          </div>
+          <div className=" mt-8">
+            <div className="flex items-center justify-between px-2">
+              <div className="font-semibold text-primary">Grouped Channels</div>
+              <div
+                className="flex items-center justify-center cursor-pointer "
+                onClick={() => setgroupmodal(true)}
+              >
+                <div className="flex items-center justify-center">
+                  <IoAddCircleOutline className="text-secondary" />
+                </div>
+                <div className="text-secondary pl-1">New group</div>
+              </div>
+            </div>
+            <div className="mt-4 max-w-full overflow-x-scroll overflow-y-hidden w-[100%]">
+              <div className="flex items-start overflow-x-scroll overflow-y-hidden w-[2000px]">
+                {Array.from(Array(7)).map((_, i) => (
+                  <ChannelPill key={i} />
+                ))}
+                <ChannelMoreBtn />
+              </div>
+            </div>
+          </div>
+          <hr className="my-6" />
+          <div className="">
+            <div className="flex items-center justify-between px-2">
+              <div className="font-semibold text-primary">Your Channels</div>
+              <div className="flex items-center justify-center cursor-pointer  ">
+                <div className="flex items-center justify-center">
+                  <IoAddCircleOutline className="text-secondary" />
+                </div>
+                <div
+                  className="text-secondary pl-1"
+                  onClick={() => setmetermodal(true)}
+                >
+                  Add Meter
+                </div>
+              </div>
+            </div>
+            <div className="mt-4 max-w-full">
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-8 px-2 py-2">
+                {[
+                  { channelId: "HSXN233333", name: "Buld" },
+                  { channelId: "0892348k93", name: "Socket" },
+                  { channelId: "jsuh277700", name: "Pumping Machine" },
+                ].map((i) => (
+                  <ChannelCard key={i?.channelId} data={i} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </Layout>
+    </>
   );
 };
 

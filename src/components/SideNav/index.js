@@ -8,8 +8,8 @@ import { FiLogOut } from "react-icons/fi";
 
 const SideNav = ({}) => {
   const location = useLocation();
-
   const iconColor = (url) => (location.pathname == url ? "white" : "#858c98");
+
   return (
     <div className="side-nav hidden md:hidden lg:block side-nav_bg h-screen w-[260px] drop-shadow-md bg-gray-900">
       <div className="mt-8 flex items-center px-6">

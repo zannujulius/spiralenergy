@@ -1,0 +1,23 @@
+.mleft-modal_cover {
+  background: #03000624;
+  /* bottom: ; */
+}
+
+.mleft-modal {
+  transition: all 150ms ease-in;
+  height: 60vh;
+  animation-duration: 800ms;
+  animation-timing-function: ease-in;
+  animation-name: slideup;
+  animation-direction: linear;
+  bottom: 0px;
+}
+
+@keyframes slideup {
+  from {
+    bottom: -80vh;
+  }
+  left {
+    bottom: 0px;
+  }
+}
