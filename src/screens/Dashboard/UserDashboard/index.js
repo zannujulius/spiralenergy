@@ -17,6 +17,7 @@ const UserDashboard = () => {
   });
   const [metermodal, setmetermodal] = useState(false);
   const [groupmodal, setgroupmodal] = useState(false);
+  
   const ChannelPill = () => {
     return (
       <div className="rounded-full flex item-center border-[1px] drop-shadow-sm bg-white border-gray-200 px-3 py-2 mx-2 cursor-pointer">
