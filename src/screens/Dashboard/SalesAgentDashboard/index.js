@@ -2,7 +2,7 @@ import Layout from "../../../components/Layout";
 import PageTitle from "../../../components/PageTitle";
 import moment from "moment";
 import { useState } from "react";
-import { CircularProgressbar } from "react-circular-progressbar";
+// import { CircularProgressbar } from "react-circular-progressbar";
 // import SalesLineChart from "../../../components/SalesAgent/Charts/SalesLineChart";i
 import SalesLineChart from "../../../components/Dashboards/SalesAgent/Charts/SalesLineChart";
 import DateRangePicker from "../../../components/DateRangePicker";
@@ -13,6 +13,7 @@ const SalesAgentDashboard = () => {
     moment(Date.now()).startOf("day").format("lll")
   );
   const [endDate, setsetendDate] = useState(moment(Date.now()).format("lll"));
+  
   const AgentTopCard = ({ title, value, caption }) => {
     return (
       <div className="bg-white h-[120px] rounded drop-shadow-md p-4 flex items-center justify-between">

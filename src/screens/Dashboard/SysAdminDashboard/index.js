@@ -1,9 +1,20 @@
+import React from "react";
 import Layout from "../../../components/Layout";
 import { IoIosArrowForward } from "react-icons/io";
 import DateRangePicker from "../../../components/DateRangePicker";
 import RevenueChart from "../../../components/Dashboards/SystemAdmin/Chart/RevenueChart";
 import PowerQualityChart from "../../../components/Dashboards/SystemAdmin/Chart/PowerQualityChart";
+
+import { useAsync } from "../../../utils/Hooks/useAsync";
+import { client } from "../../../utils/api";
+
 const SysAdminDashboard = () => {
+  const { data, run } = useAsync({ data: [], status: "pending" });
+
+  React.useEffect(() => {
+    run(client(`roles/getallroles`, { data: {}, method: "POST" }));
+  }, [run]);
+
   const RoleCard = ({ role, site }) => {
     return (
       <div className="flex items-center justify-between my-2 even:bg-gray-50 p-1 cursor-pointer rounded-sm">
@@ -37,6 +48,7 @@ const SysAdminDashboard = () => {
       </div>
     );
   };
+
   return (
     <Layout>
       <div className="mb-40">
