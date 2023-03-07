@@ -19,7 +19,7 @@ function useAsync(initialState) {
     ...defaultInitialState,
     ...initialState,
   });
-  
+
   const [{ status, data, error }, setState] = React.useReducer(
     (s, a) => ({ ...s, ...a }),
     initialStateRef.current
@@ -49,12 +49,11 @@ function useAsync(initialState) {
       }
       safeSetState({ status: "pending" });
       return promise.then(
-        (data) => {
-          setData(data);
-          return data;
+        (resp) => {
+          setData(resp.data);
+          return resp.data;
         },
         (error) => {
-          console.log("AN ERRR WAS RECEIVED")
           setError(error);
           return Promise.reject(error);
         }

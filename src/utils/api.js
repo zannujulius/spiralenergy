@@ -1,5 +1,5 @@
 import { getToken } from "./token";
-import axios from "axios";
+import axios from "./axios";
 
 const apiURL = process.env.REACT_APP_API_URL;
 
@@ -9,10 +9,10 @@ async function client(
 ) {
   const config = {
     method,
-    data: data ? data : undefined,
+    data: data || undefined,
     url: `${apiURL}${endpoint}`,
     headers: {
-      Authorization: token ? `Bearer ${getToken()}` : undefined,
+      Authorization: token ? `Bearer ${getToken("spiral_token")}` : undefined,
       "Content-Type": data ? "application/json" : undefined,
       ...customHeaders,
     },
@@ -21,10 +21,10 @@ async function client(
 
   return axios(config)
     .then((resp) => {
-      return Promise.resolve(data);
+      return Promise.resolve(resp);
     })
     .catch((error) => {
-      return Promise.reject(data);
+      return Promise.reject(error);
     });
 }
 

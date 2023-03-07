@@ -5,15 +5,24 @@ import DateRangePicker from "../../../components/DateRangePicker";
 import RevenueChart from "../../../components/Dashboards/SystemAdmin/Chart/RevenueChart";
 import PowerQualityChart from "../../../components/Dashboards/SystemAdmin/Chart/PowerQualityChart";
 
+
 import { useAsync } from "../../../utils/Hooks/useAsync";
 import { client } from "../../../utils/api";
+import { getToken } from "../../../../src/utils/token";
 
 const SysAdminDashboard = () => {
   const { data, run } = useAsync({ data: [], status: "pending" });
 
   React.useEffect(() => {
-    run(client(`roles/getallroles`, { data: {}, method: "POST" }));
+    run(
+      client(`roles/getallroles`, {
+        data: {},
+        method: "POST",
+        token: getToken("spiral_token"),
+      })
+    );
   }, [run]);
+
 
   const RoleCard = ({ role, site }) => {
     return (
