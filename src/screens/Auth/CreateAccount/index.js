@@ -197,11 +197,11 @@ const CreateAccount = () => {
                 Need help with you account?
               </div>
               <Link
-                to="/login"
+                to="/"
                 className="underline pl-2 w-100 block cursor-pointer text-sm font-light text-secondary text-center"
               >
-                Have an account?
-                <span className="font-semibold text-1xl"> Log in instead.</span>
+                Don't have an account?
+                <span className="font-semibold text-1xl"> Log in.</span>
               </Link>
             </div>
           </div>

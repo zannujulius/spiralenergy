@@ -90,7 +90,7 @@ const ResetPassword = () => {
                 to="/"
                 className="underline w-100 block cursor-pointer text-sm font-thin text-secondary text-center"
               >
-                Have an account? Log in instead.
+                Don't have an account? Log in.
               </Link>
             </div>
           </div>

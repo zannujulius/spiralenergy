@@ -21,7 +21,7 @@ function App() {
         {/* New */}
         <Route path="/createaccount" element={<CreateAccount />} />
         <Route path="/emailverification" element={<EmailVerification />} />
-        <Route path="/login" element={<SignIn />} />
+        <Route path="/" element={<SignIn />} />
 
         {/* <Route path="/" element={<Login />} /> */}
         <Route path="/resetpassword" element={<ResetPassword />} />
