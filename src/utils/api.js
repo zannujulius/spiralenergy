@@ -7,10 +7,15 @@ async function client(
 ) {
   const config = {
     method,
-    data: data || undefined,
+    data:
+      {
+        ...data,
+        callerid: getToken("spiral_username"),
+        sessionid: getToken("spiral_token"),
+      } || undefined,
     url: endpoint,
     headers: {
-      Authorization: token ? `Bearer ${getToken("spiral_token")}` : undefined,
+      // Authorization: token ? `Bearer ${getToken("spiral_token")}` : undefined,
       "Content-Type": data ? "application/json" : undefined,
       ...customHeaders,
     },

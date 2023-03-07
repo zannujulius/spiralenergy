@@ -12,6 +12,7 @@ import axios from "../../../utils/axios";
 import { errorBlock } from "../../../controllers/errorBlock";
 import { channelController } from "../../../controllers/channelController";
 import { toast } from "react-hot-toast";
+import { IoFlash } from "react-icons/io5";
 // import MLeftModal from "../../../components/MobileComponents/Modals/MleftModal";
 const MUserDashboard = () => {
   // meter
@@ -70,8 +71,28 @@ const MUserDashboard = () => {
           </div>
         </div>
         {/* dasbhoard */}
-        <div className="w-full mt-6 rounded-md h-[170px] drop-shadow-lg bg-secondary">
-          <div className=""></div>
+        <div className="w-full mt-6 rounded-lg h-[150px] drop-shadow-xl bg-gradient-to-r from-sky-500 to-indigo-500 p-3">
+          <div className="">
+            <div className="">
+              <div className="text-white font-bold font-Kanit text-4xl">12</div>
+              <div className="text-gray-100 pt-1">
+                You have <span className="">10 active</span> and 11 inactive
+                channels
+              </div>
+            </div>
+            <div className="mt-2 flex items-center justify-between">
+              <div className="flex items-center">
+                <div className=" bg-[#f3b33e] drop-shadow-xl rounded-full p-2 mr-2">
+                  <IoFlash color={"white"} size={25} />
+                </div>
+                <div className="">
+                  <div className="text-white font-semibold">34KWh</div>
+                  <div className="text-gray-100">Energy usages this month</div>
+                </div>
+              </div>
+              <div className=""></div>
+            </div>
+          </div>
         </div>
       </LayoutMobile>
     </>
