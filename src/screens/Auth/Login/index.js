@@ -26,6 +26,7 @@ const Login = () => {
           <div className="font-thin text-center text-lg text-gray-600">
             Log into your account to continue.
           </div>
+
           <hr className="my-4" />
           <div className="w-100">
             {/* Username */}
