@@ -1,9 +1,9 @@
 import * as React from "react";
-import {useSafeDispatch} from "./useSafeDispatch"
+import { useSafeDispatch } from "./useSafeDispatch";
 
 const defaultInitialState = { status: "idle", data: null, error: null };
 
-const  useAsync = (initialState) => {
+const useAsync = (initialState) => {
   const initialStateRef = React.useRef({
     ...defaultInitialState,
     ...initialState,
@@ -65,6 +65,6 @@ const  useAsync = (initialState) => {
     run,
     reset,
   };
-}
+};
 
 export { useAsync };

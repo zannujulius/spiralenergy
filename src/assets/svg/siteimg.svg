@@ -1,0 +1,18 @@
+<svg id="_392502_gps_location_map_marker_icon" data-name="392502_gps_location_map_marker_icon" xmlns="http://www.w3.org/2000/svg" width="37.495" height="37.496" viewBox="0 0 37.495 37.496">
+  <g id="Group_891" data-name="Group 891" transform="translate(1.338 2.678)">
+    <path id="Path_166" data-name="Path 166" d="M649,138h34.818v24.1H665.07" transform="translate(-649 -137.999)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path id="Path_167" data-name="Path 167" d="M654.357,160.747H649V142" transform="translate(-649 -136.642)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path id="Path_168" data-name="Path 168" d="M663.713,156,653,164.035V156" transform="translate(-647.643 -131.894)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+  </g>
+  <g id="Group_895" data-name="Group 895">
+    <g id="Group_892" data-name="Group 892" transform="translate(5.357)">
+      <path id="Path_169" data-name="Path 169" d="M19.391,35.479a1.337,1.337,0,0,1-.868-.319c-.324-.276-7.957-6.83-11.142-13.978a1.339,1.339,0,1,1,2.447-1.089c2.329,5.229,7.468,10.31,9.54,12.226C23.025,28.771,30.1,20.84,30.1,15.7A10.883,10.883,0,0,0,19.391,4.678,10.883,10.883,0,0,0,8.678,15.7,1.339,1.339,0,1,1,6,15.7,13.563,13.563,0,0,1,19.391,2,13.563,13.563,0,0,1,32.783,15.7c0,7.917-11.977,18.961-12.487,19.428A1.34,1.34,0,0,1,19.391,35.479Z" transform="translate(-6 -2)" fill="#6418c2"/>
+    </g>
+    <g id="Group_893" data-name="Group 893" transform="translate(13.391 8.035)">
+      <path id="Path_170" data-name="Path 170" d="M17.357,18.713a5.357,5.357,0,1,1,5.357-5.357A5.362,5.362,0,0,1,17.357,18.713Zm0-8.035a2.678,2.678,0,1,0,2.678,2.678A2.681,2.681,0,0,0,17.357,10.678Z" transform="translate(-12 -8)" fill="#6418c2"/>
+    </g>
+    <g id="Group_894" data-name="Group 894" transform="translate(0 25.443)">
+      <path id="Path_171" data-name="Path 171" d="M38.157,33.053H3.339a1.339,1.339,0,0,1-1.162-2l5.357-9.374A1.339,1.339,0,0,1,9.858,23L5.646,30.374h30.2L31.637,23a1.339,1.339,0,1,1,2.325-1.328l5.357,9.374a1.339,1.339,0,0,1-1.161,2Z" transform="translate(-2 -20.999)" fill="#6418c2"/>
+    </g>
+  </g>
+</svg>
