@@ -17,8 +17,7 @@ const SysAdminDashboard = () => {
     run(
       client(`roles/getallroles`, {
         data: {},
-        method: "POST",
-        token: getToken("spiral_token"),
+        method: "POST"
       })
     );
   }, [run]);
