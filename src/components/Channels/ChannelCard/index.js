@@ -8,40 +8,56 @@ const ChannelCard = ({ data }) => {
   const [selectedchannel, setselectedchannel] = useState(null);
   const option = ["Add to group", "Rename", "Recharge"];
   return (
-    <div className="drop-shadow h-[220px] bg-white rounded flex flex-col items-center py-2 relative">
-      <ChannelOption
-        selectedchannel={selectedchannel}
-        channelId={data?.channelId}
-        setselectedchannel={setselectedchannel}
-      />
+    <div className="drop-shadow h-[180px] rounded-lg bg-white p-1 relative">
+      {modal && (
+        <ChannelOption
+          selectedchannel={selectedchannel}
+          channelId={data?.channelId}
+          setselectedchannel={setselectedchannel}
+        />
+      )}
 
-      <div
-        className="absolute right-[5px]"
-        onClick={() => {
-          if (selectedchannel) {
-            return setselectedchannel(null);
-          } else if (!selectedchannel) {
-            return setselectedchannel(data?.channelId);
-          }
-        }}
-      >
-        <BiDotsHorizontalRounded size={21} />
-      </div>
-      <div className="text-center font-ligth text-primary text-sm">123kwh</div>
-      <div className="text-center font-ligth text-primary text-[12px]">
-        in last 15minutes
-      </div>
-      <div className="flex items-center justify-center my-2">
-        <div className="w-[80px] h-[80px] overflow-hidden">
-          <img src={ChannelImg} className="w-100 h-100" />
+      <div className="flex items-center justify-between mt-1">
+        <div className="flex items-center justify-start">
+          <div className="w-[50px] h-[50px] overflow-hidden">
+            <img src={ChannelImg} className="w-100 h-100" />
+          </div>
+        </div>
+        <div
+          className="mt-[-10px]"
+          onClick={() => {
+            if (selectedchannel) {
+              return setselectedchannel(null);
+            } else if (!selectedchannel) {
+              return setselectedchannel(data?.channelId);
+            }
+          }}
+        >
+          <BiDotsHorizontalRounded size={28} />
         </div>
       </div>
-      <div className="text-center text-primary font-semibold text-[14px]">
-        {data?.name}
+
+      <div className="hidden">
+        <div className="text-center font-ligth text-primary text-sm">
+          123kwh
+        </div>
+        <div className="text-center font-ligth text-primary text-[12px]">
+          in last 15minutes
+        </div>
       </div>
-      <div className="pt-2">
+      <div className="pl-3 mt-3">
+        <div className="text-[14px] text-gray-400 font-normal">
+          Single channel
+        </div>
+        <div className="text-start text-gray-800 font-semibold text-[16px]">
+          Air conditioner
+          {/* {data?.name} */}
+        </div>
+      </div>
+
+      <div className="mt-4 pl-3">
         <Switch
-          size="larger"
+          size="default"
           defaultChecked
           onChange={(e) => {
             console.log(e);

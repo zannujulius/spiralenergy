@@ -13,11 +13,16 @@ import { errorBlock } from "../../../controllers/errorBlock";
 import { channelController } from "../../../controllers/channelController";
 import { toast } from "react-hot-toast";
 import { IoFlash } from "react-icons/io5";
+import { Select } from "antd";
+import ChannelCard from "../../../components/Channels/ChannelCard";
+
 // import MLeftModal from "../../../components/MobileComponents/Modals/MleftModal";
 const MUserDashboard = () => {
   // meter
+  const Option = Select;
   const [addmetermodal, setaddmetermodal] = useState(false);
   const [refreshbtn, setrefreshbtn] = useState(false);
+  const dataOption = ["Today", "Week", "Month"];
 
   return (
     <>
@@ -80,7 +85,7 @@ const MUserDashboard = () => {
                 channels
               </div>
             </div>
-            <div className="mt-2 flex items-center justify-between">
+            <div className="mt-2 flex items-end justify-between">
               <div className="flex items-center">
                 <div className=" bg-[#f3b33e] drop-shadow-xl rounded-full p-2 mr-2">
                   <IoFlash color={"white"} size={25} />
@@ -90,10 +95,42 @@ const MUserDashboard = () => {
                   <div className="text-gray-100">Energy usages this month</div>
                 </div>
               </div>
-              <div className=""></div>
+              <div className="w-[100px] mt-2">
+                <Select
+                  className="w-full h-[40px]"
+                  defaultValue={"month"}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                  }}
+                >
+                  {dataOption.map((i) => (
+                    <Option value={i} key={i}>
+                      {i}
+                    </Option>
+                  ))}
+                </Select>
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Groups */}
+        <div className=""></div>
+
+        {/* channels */}
+        <div className="">
+          <div className="flex items-center justify-between mt-6">
+            <div className="font-Kanit font-semibold ">My Channels</div>
+            <div className="underline text-secondary font-light">View all</div>
+          </div>
+          <div className="grid grid-cols-2 gap-6 mt-4">
+            {Array.from(Array(6)).map((i, index) => (
+              <ChannelCard key={index} />
+            ))}
+          </div>
+        </div>
+        <div className="pb-[200px]"></div>
       </LayoutMobile>
     </>
   );
