@@ -20,11 +20,11 @@ const SiteDetailsCardRight = ({
 }) => {
   const { Option } = Select;
   return (
-    <div className="container p-3 d-flex align-items-center justify-content-center flex-column">
+    <div className=" p-3 lex items-center justify-center flex-col">
       <div className="row d-flex w-100 align-items-start justify-content-between">
         <div className="col-sm-12 col-md-8 col-lg-7 col-xl-7 col-xxl-7 mt-2">
           <div
-            className="site-card_right-cover col container-fluid p-2 w-100 d-flex align-items-center justify-content-between"
+            className="site-card_right-cover  container p-2 w-100 flex align-center justify-between"
             style={{
               background: bg || color.secondaryColor,
               border: border || "none",

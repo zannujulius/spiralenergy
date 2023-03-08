@@ -10,6 +10,7 @@ import { useAsync } from "../../../utils/Hooks/useAsync";
 import { client } from "../../../utils/api";
 import { getInitials } from "../../../utils/helpers";
 import moment from "moment";
+import ListLoader from "../../../components/ListLoader"
 
 const SysAdminDashboard = () => {
   const {
@@ -55,9 +56,9 @@ const SysAdminDashboard = () => {
     moment(Date.now()).format("YYYY-MM-DD H:mm:ss")
   );
 
-  const [revenueRefresh, setRevenueRefresh] = useState(false);
-  const [paymentHistory, setPaymetHistory] = useState([]);
-  const [revenue, setRevenue] = useState(0);
+  // const [revenueRefresh, setRevenueRefresh] = useState(false);
+  // const [paymentHistory, setPaymetHistory] = useState([]);
+  // const [revenue, setRevenue] = useState(0);
 
   useEffect(() => {
     getRoles(
@@ -208,7 +209,7 @@ const SysAdminDashboard = () => {
               </div>
             </div>
             <div className="">
-              {projectManagers.map((pm, i) => (
+              {allRolesStatus !== 'pending' && projectManagers.map((pm, i) => (
                 <Link
                   key={pm?.roleid}
                   className="text-primary"
@@ -222,6 +223,7 @@ const SysAdminDashboard = () => {
                   />
                 </Link>
               ))}
+              {allRolesStatus === 'pending' && <ListLoader />}
             </div>
           </div>
           {/* Sales */}
@@ -238,13 +240,7 @@ const SysAdminDashboard = () => {
               </div>
             </div>
             <div className="text-primary">
-              {salesManagers.map((sm, i) => (
-                // <Link
-                //   key={sm?.roleid}
-                //   to={`/dashboard/projectsiteinfo/${sm?.projectzone}/${sm?.username}`}
-                // >
-
-                // </Link>
+              {allRolesStatus !== 'pending' && salesManagers.map((sm, i) => (
                 <RoleCard
                   key={sm?.roleid}
                   username={sm?.username}
@@ -252,6 +248,7 @@ const SysAdminDashboard = () => {
                   site={sm?.projectzone}
                 />
               ))}
+              {allRolesStatus === 'pending' && <ListLoader />}
             </div>
           </div>
           {/* Sales */}
@@ -268,7 +265,7 @@ const SysAdminDashboard = () => {
               </div>
             </div>
             <div className="text-primary">
-              {customerManagers.map((cm, i) => (
+              {allRolesStatus !== 'pending'  && customerManagers.map((cm, i) => (
                 // <Link
                 //   to={`/dashboard/customermanager/${cm?.projectzone}/${cm?.username}`}
                 // >
@@ -281,6 +278,7 @@ const SysAdminDashboard = () => {
                   site={cm?.projectzone}
                 />
               ))}
+              {allRolesStatus === 'pending' && <ListLoader />}
             </div>
           </div>
         </div>
