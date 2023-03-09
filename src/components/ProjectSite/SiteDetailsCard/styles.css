@@ -1,0 +1,30 @@
+.site-card__img-right {
+  width: 35px;
+  height: 35px;
+}
+
+.site-card__amount {
+  background: #f1e5ff;
+  font-size: 18px;
+  font-weight: 510;
+}
+
+.site-card__desc {
+  color: #595959;
+}
+
+.site-card_right-cover {
+}
+
+.site-card_right-value {
+  font-size: 20px;
+  font-weight: 510;
+}
+
+.site-card_right-caption {
+  color: #cacaca;
+  margin-top: -5px;
+}
+
+.site-card_date--cover {
+}

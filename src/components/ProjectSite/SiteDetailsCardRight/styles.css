@@ -1,0 +1,24 @@
+.site-card__img {
+  width: 40px;
+  height: 40px;
+}
+
+.site-card__amount {
+  background: #f1e5ff;
+  font-size: 18px;
+  font-weight: 510;
+}
+
+.site-card__desc {
+  color: #595959;
+}
+
+.details-btn__card {
+}
+
+.details-btn__card-text {
+  text-align: center;
+  color: #040404;
+  background: #f5edff;
+  /* color:  */
+}

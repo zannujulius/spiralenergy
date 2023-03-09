@@ -14,6 +14,11 @@ import CreateAccount from "./screens/Auth/CreateAccount";
 import toast, { Toaster } from "react-hot-toast";
 import EmailVerification from "./screens/Auth/EmailVerification";
 import SignIn from "./screens/Auth/SignIn";
+import SystemAdminList from "../src/screens/Dashboard/SysAdminDashboard/roleList";
+import ProjectManagerDetails from "./screens/Dashboard/SysAdminDashboard/ProjectManagerDetails"
+import CustomerManagerDetails from "./screens/Dashboard/SysAdminDashboard/CustomerManagerDetails"
+
+
 function App() {
   return (
     <div className="">
@@ -34,6 +39,18 @@ function App() {
         <Route path="dashboard" element={<UserDashboard />} />
         <Route path="dashboard/salesagent" element={<SalesAgentDashboard />} />
         <Route path="dashboard/systemadmin" element={<SysAdminDashboard />} />
+        <Route
+          path={`/dashboard/system-admin/roles`}
+          element={<SystemAdminList />}
+        />
+        <Route
+            path={"/dashboard/projectsiteinfo/:projectsite/:username"}
+            element={<ProjectManagerDetails />}
+          />
+          <Route
+            path={"/dashboard/customermanager/:projectsite/:id"}
+            element={<CustomerManagerDetails />}
+          />
         {/* user roles */}
         <Route path="userroles" element={<UserRoles />} />
       </Routes>

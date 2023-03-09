@@ -15,7 +15,6 @@ async function client(
       } || undefined,
     url: endpoint,
     headers: {
-      // Authorization: token ? `Bearer ${getToken("spiral_token")}` : undefined,
       "Content-Type": data ? "application/json" : undefined,
       ...customHeaders,
     },

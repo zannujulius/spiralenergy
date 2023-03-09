@@ -1,0 +1,28 @@
+.project-img {
+    width: 100px;
+    height: 100px;
+    background: #fbfbfb;
+  }
+  
+  .project-title {
+    color: #707070;
+    font-weight: 400;
+    font-size: 1rem;
+  }
+  
+  .project-value {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  .project-datails__title {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  .zone-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #713acb;
+  }
+  

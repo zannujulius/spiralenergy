@@ -1,38 +1,171 @@
-import React from "react";
+import React, { useMemo, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Layout from "../../../components/Layout";
 import { IoIosArrowForward } from "react-icons/io";
 import DateRangePicker from "../../../components/DateRangePicker";
 import RevenueChart from "../../../components/Dashboards/SystemAdmin/Chart/RevenueChart";
 import PowerQualityChart from "../../../components/Dashboards/SystemAdmin/Chart/PowerQualityChart";
 
-
 import { useAsync } from "../../../utils/Hooks/useAsync";
 import { client } from "../../../utils/api";
-import { getToken } from "../../../../src/utils/token";
+import { getInitials } from "../../../utils/helpers";
+import moment from "moment";
+import ListLoader from "../../../components/ListLoader"
 
 const SysAdminDashboard = () => {
-  const { data, run } = useAsync({ data: [], status: "pending" });
+  const {
+    data: allRoles,
+    run: getRoles,
+    status: allRolesStatus,
+  } = useAsync({
+    data: [],
+    status: "pending",
+  });
 
-  React.useEffect(() => {
-    run(
+  const {
+    data: metersInService,
+    run: getMetersInService,
+    status: metersInServiceStatus,
+  } = useAsync({
+    data: [],
+    status: "pending",
+  });
+
+  const {
+    data: regsiteredMeters,
+    run: getRegisteredMeters,
+    status: regsiteredMetersStatus,
+  } = useAsync({
+    data: [],
+    status: "pending",
+  });
+
+  const {
+    data: salesHistory,
+    run: getSalesHistory,
+    status: salesHistoryStatus,
+  } = useAsync({
+    data: [],
+    status: "pending",
+  });
+
+  const [revenueStartDate, setRevenueStartDate] = useState(
+    moment(Date.now()).subtract("1", "week").format("YYYY-MM-DD HH:mm:ss")
+  );
+  const [revenueEndDate, setRevenueEndDate] = useState(
+    moment(Date.now()).format("YYYY-MM-DD H:mm:ss")
+  );
+
+  // const [revenueRefresh, setRevenueRefresh] = useState(false);
+  // const [paymentHistory, setPaymetHistory] = useState([]);
+  // const [revenue, setRevenue] = useState(0);
+
+  useEffect(() => {
+    getRoles(
       client(`roles/getallroles`, {
         data: {},
         method: "POST",
-        token: getToken("spiral_token"),
       })
     );
-  }, [run]);
+  }, [getRoles]);
 
+  useEffect(() => {
+    const data = {
+      startdate: moment(Date.now()).startOf("year").format("YYYY-MM-DD"),
+      enddate: moment(Date.now()).format("YYYY-MM-DD"),
+    };
 
-  const RoleCard = ({ role, site }) => {
+    getMetersInService(
+      client(`meter/countallmetersinservice`, {
+        data,
+        method: "POST",
+      })
+    );
+  }, [getMetersInService]);
+
+  useEffect(() => {
+    const data = {
+      startdate: moment(Date.now()).startOf("year").format("YYYY-MM-DD"),
+      enddate: moment(Date.now()).format("YYYY-MM-DD"),
+    };
+
+    getMetersInService(
+      client(`/meter/countallregisteredmeters`, {
+        data,
+        method: "POST",
+      })
+    );
+  }, [getMetersInService]);
+
+  useEffect(() => {
+    const data = {
+      startdate: moment(Date.now()).startOf("year").format("YYYY-MM-DD"),
+      enddate: moment(Date.now()).format("YYYY-MM-DD"),
+    };
+
+    getRegisteredMeters(
+      client(`/meter/countallregisteredmeters`, {
+        data,
+        method: "POST",
+      })
+    );
+  }, [getRegisteredMeters]);
+
+  useEffect(() => {
+    const data = {
+      projectzone: "[]",
+      assettype: "[]",
+      startdate: revenueStartDate,
+      enddate: revenueEndDate,
+      targetusername: "",
+      paymentoperation: JSON.stringify(["Vending", "Connection fee"]),
+    };
+
+    getSalesHistory(
+      client(`/salesanalytics/getsaleshistory`, {
+        data,
+        method: "POST",
+      })
+    );
+  }, [getSalesHistory, revenueEndDate, revenueStartDate]);
+
+  const projectManagers = useMemo(() => {
+    const { body: roleData } = allRoles;
+    if (roleData?.length) {
+      return roleData
+        .filter((item) => item.role === "Project Manager")
+        .slice(0, 4);
+    }
+    return [];
+  }, [allRoles]);
+
+  const salesManagers = useMemo(() => {
+    const { body: roleData } = allRoles;
+    if (roleData?.length) {
+      return roleData.filter((item) => item.role === "Sales Agent").slice(0, 4);
+    }
+    return [];
+  }, [allRoles]);
+
+  const customerManagers = useMemo(() => {
+    const { body: roleData } = allRoles;
+    if (roleData?.length) {
+      return roleData
+        .filter((item) => item.role === "Customer Representative")
+        .slice(0, 4);
+    }
+    return [];
+  }, [allRoles]);
+
+  const RoleCard = ({ role, site, username }) => {
     return (
       <div className="flex items-center justify-between my-2 even:bg-gray-50 p-1 cursor-pointer rounded-sm">
         <div className="flex items-center">
-          <div className="rounded-full bg-gray-700 text-white font-light p-3">
-            JM
+          <div className="rounded-full bg-gray-700 text-white font-light p-3 w-10 h-10 flex items-center justify-center">
+            {getInitials(username)}
           </div>
           <div className="ml-3">
-            <div className="">James Mark</div>
+            <div className="">{username ? username : "N/A"}</div>
             <div className="text-gray-400 font-light">
               {role}:{" "}
               <span className="font-semibold text-gray-800">{site}</span>
@@ -63,40 +196,89 @@ const SysAdminDashboard = () => {
       <div className="mb-40">
         <div className="mt-8 my-4 font-semibold">General Site Analytics</div>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8">
-          {/* Project */}
           <div className="bg-white rounded drop-shadow-md p-4">
             <div className="flex items-center justify-between mb-3">
               <div className="font-semibold ">Project Managers</div>
-              <div className="text-secondary underline">View all </div>
+              <div className="underline">
+                <Link
+                  className="text-secondary"
+                  to="/dashboard/system-admin/roles?role=Project Manager"
+                >
+                  View all{" "}
+                </Link>
+              </div>
             </div>
             <div className="">
-              {Array.from(Array(4)).map((_, i) => (
-                <RoleCard key={i} role={"Project Manager"} site={"Ikeja"} />
+              {allRolesStatus !== 'pending' && projectManagers.map((pm, i) => (
+                <Link
+                  key={pm?.roleid}
+                  className="text-primary"
+                  to={`/dashboard/projectsiteinfo/${pm?.projectzone}/${pm?.username}`}
+                >
+                  <RoleCard
+                    username={pm?.username}
+                    key={pm?.roleid}
+                    role={pm?.role}
+                    site={pm?.projectzone}
+                  />
+                </Link>
               ))}
+              {allRolesStatus === 'pending' && <ListLoader />}
             </div>
           </div>
           {/* Sales */}
           <div className="bg-white rounded drop-shadow-md p-4">
             <div className="flex items-center justify-between mb-3">
               <div className="font-semibold ">Sales Managers</div>
-              <div className="text-secondary underline ">View all </div>
+              <div className="text-secondary underline ">
+                <Link
+                  className="text-secondary"
+                  to="/dashboard/system-admin/roles?role=Sales Manager"
+                >
+                  View all{" "}
+                </Link>
+              </div>
             </div>
-            <div className="">
-              {Array.from(Array(4)).map((_, i) => (
-                <RoleCard key={i} role={"Sales Agent"} site={"Abuja"} />
+            <div className="text-primary">
+              {allRolesStatus !== 'pending' && salesManagers.map((sm, i) => (
+                <RoleCard
+                  key={sm?.roleid}
+                  username={sm?.username}
+                  role={sm?.role}
+                  site={sm?.projectzone}
+                />
               ))}
+              {allRolesStatus === 'pending' && <ListLoader />}
             </div>
           </div>
           {/* Sales */}
           <div className="bg-white rounded drop-shadow-md p-4">
             <div className="flex items-center justify-between mb-3">
               <div className="font-semibold ">Customer Managers</div>
-              <div className="text-secondary underline">View all </div>
+              <div className="text-primary underline">
+                <Link
+                  className="text-primary"
+                  to="/dashboard/system-admin/roles?role=Customer Manager"
+                >
+                  View all{" "}
+                </Link>
+              </div>
             </div>
-            <div className="">
-              {Array.from(Array(4)).map((_, i) => (
-                <RoleCard key={i} role={"Customer Managers"} site={"Abuja"} />
+            <div className="text-primary">
+              {allRolesStatus !== 'pending'  && customerManagers.map((cm, i) => (
+                // <Link
+                //   to={`/dashboard/customermanager/${cm?.projectzone}/${cm?.username}`}
+                // >
+
+                // </Link>
+                <RoleCard
+                  username={cm?.username}
+                  key={cm?.roleid}
+                  role={cm?.role}
+                  site={cm?.projectzone}
+                />
               ))}
+              {allRolesStatus === 'pending' && <ListLoader />}
             </div>
           </div>
         </div>
@@ -113,21 +295,19 @@ const SysAdminDashboard = () => {
                 <MeterTopCard
                   title={"Active meters"}
                   caption={"Total number of meter in service"}
-                  value={"736"}
+                  value={metersInService?.count}
                 />
                 <MeterTopCard
                   title={"Decommissioned meters"}
                   caption={
                     "Total number of meters that has been stop from being used "
                   }
-                  value={"239"}
+                  value={"N/A"}
                 />
                 <MeterTopCard
-                  title={"Unregistered meters"}
-                  caption={
-                    "Total number of meters that are have not being assigned."
-                  }
-                  value={"398"}
+                  title={"Registered meters"}
+                  caption={"Total number of meters that  have been assigned."}
+                  value={regsiteredMeters?.count}
                 />
               </div>
             </div>
