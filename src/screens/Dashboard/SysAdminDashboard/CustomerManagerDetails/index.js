@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import axios from "../../../../utils/axios";
 import { useState, useEffect } from "react";
+
 const CustomerManagerDetails = () => {
   let { projectsite, id } = useParams();
 
@@ -92,22 +93,23 @@ const CustomerManagerDetails = () => {
   }, [userDetails.dateregistered]);
   return (
     <Layout>
+      {/* <TopNav title={"System Admin Dashboard"} /> */}
       <div className="px-3 mt-3">
-        <BackBtn text={"Go back"} />
+        {/* <BackBtn text={"Go back"} /> */}
         <div
-          className="container-fluid"
+          className="container"
           style={{
             marginBottom: 200,
           }}
         >
-          <div className="row d-flex align-items-center mt-4">
-            <div className="col-sm-12 col-md-5 col-lg-5 col-xl-5 col-xxl-5 project-datails__title bg-white p-2 rounded-1 shadow-sm">
+          <div className="flex align-center mt-4">
+            <div className="project-datails__title bg-white p-2 rounded-1 shadow-sm">
               <div className="">
                 Customer Manager Details for {projectsite}{" "}
               </div>
-              <div className="row mt-2 d-lfex align-items-center justify-content-between">
-                <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3 d-none d-sm-none d-md-block d-lg-block d-xl-block">
-                  <div className="project-img d-flex align-items-center justify-content-center">
+              <div className=" mt-2 flex align-center justify-between">
+                <div className=" hidden  md:block">
+                  <div className="project-img flex align-center justify-center">
                     <img
                       src={ProfileImg}
                       alt={"img"}
@@ -125,17 +127,17 @@ const CustomerManagerDetails = () => {
                       height: 130,
                     }}
                   >
-                    <div className="project-entry d-flex align-items-center justify-content-between ">
+                    <div className="project-entry flex align-center justify-between ">
                       <div className="project-title ">Full Name</div>
                       <div className="project-value">
                         {userDetails.firstname} {userDetails.lastname}
                       </div>
                     </div>
-                    <div className="project-entry mt-1 d-flex align-items-center justify-content-between">
+                    <div className="project-entry mt-1 flex align-center justify-between">
                       <div className="project-title">Phone Number</div>
                       <div className="project-value">{userDetails.phone}</div>
                     </div>
-                    <div className="project-entry mt-1 d-flex  align-items-center justify-content-between">
+                    <div className="project-entry mt-1 flex  align-center justify-between">
                       <div className="project-title">Date Registered</div>
                       <div className="project-value">
                         {moment(userDetails.dateregistered).format(
@@ -143,12 +145,12 @@ const CustomerManagerDetails = () => {
                         )}
                       </div>
                     </div>
-                    <div className="project-entry mt-1 d-flex  align-items-center justify-content-between">
+                    <div className="project-entry mt-1 flex  align-center justify-between">
                       <div className="project-title">Site assigned</div>
                       <div className="project-value">{projectsite}</div>
                     </div>
                     <div className="">
-                      <div className="project-entry mt-1 d-flex align-items-center justify-content-between">
+                      <div className="project-entry mt-1 flex align-center justify-between">
                         <div className="project-title ">Email</div>
                         <div className="project-value">{userDetails.email}</div>
                       </div>

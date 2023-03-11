@@ -98,7 +98,6 @@ const SysAdminDashboard = () => {
     }
   }, [getsaleshistoryperzone, getallmetersinzone, projectsite, userDetails]);
 
-  console.log("meters", meters)
 
   return (
     <Layout>
