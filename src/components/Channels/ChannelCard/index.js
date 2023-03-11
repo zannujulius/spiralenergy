@@ -50,8 +50,7 @@ const ChannelCard = ({ data }) => {
           Single channel
         </div>
         <div className="text-start text-gray-800 font-semibold text-[16px]">
-          Air conditioner
-          {/* {data?.name} */}
+          {data?.alias}
         </div>
       </div>
 

@@ -4,7 +4,7 @@ import { AiFillNotification } from "react-icons/ai";
 import { IoNotificationsSharp } from "react-icons/io5";
 import { BsPlusCircle } from "react-icons/bs";
 import { themeColor } from "../../../constant/color";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MLeftModal from "../../../components/MobileComponents/Modals/MLeftModal/index.js";
 import { Button } from "../../../components/Button";
 import MAddMeter from "../../../components/MobileComponents/User/MModals/MAddMeter";
@@ -15,7 +15,6 @@ import { toast } from "react-hot-toast";
 import { IoFlash } from "react-icons/io5";
 import { Select } from "antd";
 import ChannelCard from "../../../components/Channels/ChannelCard";
-
 // import MLeftModal from "../../../components/MobileComponents/Modals/MleftModal";
 const MUserDashboard = () => {
   // meter
@@ -23,6 +22,51 @@ const MUserDashboard = () => {
   const [addmetermodal, setaddmetermodal] = useState(false);
   const [refreshbtn, setrefreshbtn] = useState(false);
   const dataOption = ["Today", "Week", "Month"];
+  const [loading, setloading] = useState(false);
+  const [data, setdata] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        let res = await axios.post("/submeter/getallchannels", {
+          groupprefix: "",
+          limit: 5,
+          offset: 0,
+        });
+        const result = channelController(res);
+        console.log(result, "///result");
+        if (result.type !== "success") {
+          toast.error(result.message);
+          setloading({ dataLoading: false });
+          return;
+        }
+        const item = result.message.body.map((item, index) => {
+          if (item.type == "group") {
+            return {
+              alias: item.alias,
+              channelid: item.alias,
+              type: item.type,
+              billingactive: false,
+            };
+          } else if (item.type == "single") {
+            return {
+              alias: item.alias,
+              channelid: item.channelid,
+              type: item.type,
+              billingactive: item.billingactive,
+            };
+          }
+        });
+        // conso;
+        // setCount((prev) => result.message.meta.count);
+        setdata((prev) => item);
+        // setloading({ dataLoading: false });
+      } catch (err) {
+        errorBlock(err);
+        console.log(err.message);
+      }
+    })();
+  }, []);
 
   return (
     <>
@@ -125,8 +169,8 @@ const MUserDashboard = () => {
             <div className="underline text-secondary font-light">View all</div>
           </div>
           <div className="grid grid-cols-2 gap-6 mt-4">
-            {Array.from(Array(6)).map((i, index) => (
-              <ChannelCard key={index} />
+            {data.map((data, index) => (
+              <ChannelCard key={index} data={data} />
             ))}
           </div>
         </div>
