@@ -258,7 +258,7 @@ const SignIn = () => {
                       onChange={(e) => setemail(e.target.value)}
                       type={"email"}
                       placeholder={"Enter your email address"}
-                      className=" placeholder:text-sm placeholder:font-thin outline-none border-[0px]"
+                      className=" placeholder:text-sm placeholder:font-thin w-full outline-none border-[0px]"
                     />
                   </div>
                 </div>
@@ -343,7 +343,7 @@ const SignIn = () => {
                   Username
                 </label>
                 <div className="flex bg-white items-center w-100 border-[1px] rounded-sm border-gray-300 mt-2 h-[55px]">
-                  <div className="d-inline flex items-center justify-center px-2">
+                  <div className="d-inline flex items-center justify-center px-2 ">
                     <AiOutlineUser
                       size={20}
                       color="text-primary"

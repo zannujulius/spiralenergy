@@ -20,6 +20,7 @@ import CustomerManagerDetails from "./screens/Dashboard/SysAdminDashboard/Custom
 import { ProfileContextProvider } from "./context/profileContext";
 import { ChannelContextProvider } from "./context/channelContext";
 import AllChannels from "./screens/channels/Allchannels";
+import MChannelDetails from "./screensMobile/Channels/MChannelDetails";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
               element={<CompleteRegistration />}
             />
             <Route path="allchannels" element={<AllChannels />} />
+            <Route path="channel/:id" element={<MChannelDetails />} />
 
             {/* UserDashboard */}
             <Route path="dashboard" element={<UserDashboard />} />

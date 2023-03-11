@@ -3,6 +3,7 @@ import ChannelImg from "../../../assets/png/channelimg.png";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import ChannelOption from "../ChannelOption";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 const ChannelCard = ({ data }) => {
   const [modal, setmodal] = useState(false);
   const [selectedchannel, setselectedchannel] = useState(null);
@@ -33,28 +34,25 @@ const ChannelCard = ({ data }) => {
             }
           }}
         >
-          <BiDotsHorizontalRounded size={28} />
+          <BiDotsHorizontalRounded size={28} color={"black"} />
         </div>
       </div>
 
-      <div className="hidden">
-        <div className="text-center font-ligth text-primary text-sm">
-          123kwh
-        </div>
-        <div className="text-center font-ligth text-primary text-[12px]">
-          in last 15minutes
-        </div>
-      </div>
-      <div className="pl-3 mt-3">
+      <Link
+        to={data?.type == "single" ? "/channel/:id" : "/group/channels"}
+        className="pl-3 mt-3 absolute h-[100px] top-[20px] w-full pt-8"
+      >
         <div className="text-[14px] text-gray-400 font-normal">
-          Single channel
+          {data?.type[0].toUpperCase() +
+            data?.type.substring(1, data?.type.length)}
+          channel
         </div>
         <div className="text-start text-gray-800 font-semibold text-[16px]">
           {data?.alias}
         </div>
-      </div>
+      </Link>
 
-      <div className="mt-4 pl-3">
+      <div className="mt-4 pl-3 absolute bottom-2">
         <Switch
           size="default"
           defaultChecked
