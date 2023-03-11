@@ -11,7 +11,7 @@ const SideNav = ({}) => {
   const iconColor = (url) => (location.pathname == url ? "white" : "#858c98");
 
   return (
-    <div className="side-nav hidden md:hidden lg:block side-nav_bg h-screen w-[260px] drop-shadow-md bg-gray-900">
+    <div className="side-nav md:hidden lg:block side-nav_bg h-screen w-[260px] drop-shadow-md bg-gray-900">
       <div className="mt-8 flex items-center px-6">
         <div className="w-[30px] h-[30px] border-[1px] rounded-full border-gray-400"></div>
         <div className="font-bold pl-2 text-[17px] text-white">
