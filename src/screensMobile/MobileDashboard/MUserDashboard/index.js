@@ -14,16 +14,21 @@ import { channelController } from "../../../controllers/channelController";
 import { toast } from "react-hot-toast";
 import { IoFlash } from "react-icons/io5";
 import { Select } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllChannels } from "../../../redux/slice/channelSlice";
 import ChannelCard from "../../../components/Channels/ChannelCard";
+import Skimmer from "../../../components/Loader/Skimmer";
 // import MLeftModal from "../../../components/MobileComponents/Modals/MleftModal";
 const MUserDashboard = () => {
   // meter
+  const { allChannels } = useSelector((state) => state.channels);
   const Option = Select;
   const [addmetermodal, setaddmetermodal] = useState(false);
   const [refreshbtn, setrefreshbtn] = useState(false);
   const dataOption = ["Today", "Week", "Month"];
-  const [loading, setloading] = useState(false);
+  const [loading, setloading] = useState(true);
   const [data, setdata] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
@@ -34,7 +39,7 @@ const MUserDashboard = () => {
           offset: 0,
         });
         const result = channelController(res);
-        console.log(result, "///result");
+
         if (result.type !== "success") {
           toast.error(result.message);
           setloading({ dataLoading: false });
@@ -57,10 +62,8 @@ const MUserDashboard = () => {
             };
           }
         });
-        // conso;
-        // setCount((prev) => result.message.meta.count);
-        setdata((prev) => item);
-        // setloading({ dataLoading: false });
+        dispatch(getAllChannels(item));
+        setloading(false);
       } catch (err) {
         errorBlock(err);
         console.log(err.message);
@@ -68,14 +71,15 @@ const MUserDashboard = () => {
     })();
   }, []);
 
+  console.log(allChannels, "//all channels");
   return (
     <>
       {addmetermodal && (
         <MAddMeter refreshBtn={setrefreshbtn} closeBtn={setaddmetermodal} />
       )}
-      <LayoutMobile className="">
+      <LayoutMobile pageTitle={"Dashboard"} className="">
         {/* Top Nav */}
-        <div className="flex items-center justify-between w-full sticky top-0 z-20  ">
+        <div className="hidden items-center justify-between w-full sticky top-0 z-20">
           <div className="bg-gray-200 rounded-full p-2 flex items-center justify-center">
             <HiViewGrid size={30} />
           </div>
@@ -102,7 +106,7 @@ const MUserDashboard = () => {
         </div>
 
         {/*Info */}
-        <div className="mt-6 flex items-end justify-between cursor-pointer ">
+        <div className="pt-[80px] flex items-end justify-between cursor-pointer ">
           <div className="">
             <div className="font-normal text-gray-400">Welcome back </div>
             <div className="font-Kanit font-semibold text-start text-[18px] pt-[1px]">
@@ -161,18 +165,49 @@ const MUserDashboard = () => {
 
         {/* Groups */}
         <div className=""></div>
-
         {/* channels */}
         <div className="">
           <div className="flex items-center justify-between mt-6">
             <div className="font-Kanit font-semibold ">My Channels</div>
             <div className="underline text-secondary font-light">View all</div>
           </div>
-          <div className="grid grid-cols-2 gap-6 mt-4">
-            {data.map((data, index) => (
-              <ChannelCard key={index} data={data} />
-            ))}
-          </div>
+
+          {/* if we have channels */}
+          {loading ? (
+            <div className="grid grid-cols-2 gap-6 mt-4">
+              {Array.from(Array(6)).map((_, i) => (
+                <div className="h-[190px] bg-white drop-shadow-sm" key={i}>
+                  <Skimmer heigth={"100%"} />
+                </div>
+              ))}
+            </div>
+          ) : !allChannels.length ? (
+            <div className=" h-[400px] mt-[50px] bg-white flex flex-col justify-center items-center">
+              <div className=""></div>
+              <div className="text-center font-semibold text-gray-700">
+                You don't have any meter at the moment
+              </div>
+              <div
+                className="w-[fit-content] mt-4 flex items-center justify-center border-[1px] border-secondary rounded-full p-1"
+                onClick={() => setaddmetermodal(true)}
+              >
+                <div className="">
+                  <BsPlusCircle
+                    size={20}
+                    color={themeColor.secondary}
+                    style={{}}
+                  />
+                </div>
+                <div className="text-secondary pl-2">Add device</div>
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-6 mt-4">
+              {allChannels.map((i, index) => (
+                <ChannelCard key={index} data={i} />
+              ))}
+            </div>
+          )}
         </div>
         <div className="pb-[200px]"></div>
       </LayoutMobile>

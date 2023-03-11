@@ -9,10 +9,10 @@ const ChannelCard = ({ data }) => {
   const option = ["Add to group", "Rename", "Recharge"];
   return (
     <div className="drop-shadow h-[180px] rounded-lg bg-white p-1 relative">
-      {modal && (
+      {selectedchannel == data?.channelid && (
         <ChannelOption
           selectedchannel={selectedchannel}
-          channelId={data?.channelId}
+          channelId={data?.channelid}
           setselectedchannel={setselectedchannel}
         />
       )}
@@ -24,12 +24,12 @@ const ChannelCard = ({ data }) => {
           </div>
         </div>
         <div
-          className="mt-[-10px]"
+          className="mt-[-10px] cursor-pointer"
           onClick={() => {
             if (selectedchannel) {
               return setselectedchannel(null);
             } else if (!selectedchannel) {
-              return setselectedchannel(data?.channelId);
+              return setselectedchannel(data?.channelid);
             }
           }}
         >

@@ -1,0 +1,30 @@
+.skimmer {
+  background-color: #eee;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.skimmer-container {
+  width: 900px;
+  height: 100px;
+  background: #ffffff37;
+  position: absolute;
+  top: 0;
+  transform: rotate(-20deg);
+  filter: blur(1);
+  animation: skimmer;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  animation-iteration-count: infinite;
+}
+
+@keyframes skimmer {
+  from {
+    left: -200px;
+  }
+
+  to {
+    left: 1000px;
+  }
+}
