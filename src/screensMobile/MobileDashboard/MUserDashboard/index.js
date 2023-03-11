@@ -4,7 +4,7 @@ import { AiFillNotification } from "react-icons/ai";
 import { IoNotificationsSharp } from "react-icons/io5";
 import { BsPlusCircle } from "react-icons/bs";
 import { themeColor } from "../../../constant/color";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MLeftModal from "../../../components/MobileComponents/Modals/MLeftModal/index.js";
 import { Button } from "../../../components/Button";
 import MAddMeter from "../../../components/MobileComponents/User/MModals/MAddMeter";
@@ -14,15 +14,23 @@ import { channelController } from "../../../controllers/channelController";
 import { toast } from "react-hot-toast";
 import { IoFlash } from "react-icons/io5";
 import { Select } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 import ChannelCard from "../../../components/Channels/ChannelCard";
-
+import { getAllchannels } from "../../../redux/action/channelActions";
 // import MLeftModal from "../../../components/MobileComponents/Modals/MleftModal";
 const MUserDashboard = () => {
   // meter
+  const dispatch = useDispatch();
+
   const Option = Select;
   const [addmetermodal, setaddmetermodal] = useState(false);
   const [refreshbtn, setrefreshbtn] = useState(false);
   const dataOption = ["Today", "Week", "Month"];
+
+  useEffect(() => {
+    dispatch(getAllchannels());
+    return () => {};
+  }, []);
 
   return (
     <>

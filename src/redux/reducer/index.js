@@ -1,6 +1,7 @@
 import storageSession from "redux-persist/lib/storage/session";
 import { persistReducer } from "redux-persist";
 import { combineReducers } from "redux";
+import { channelReducer } from "./channelReducer";
 
 const persisConfig = {
   key: "root",
@@ -9,7 +10,7 @@ const persisConfig = {
 };
 
 const rootReducer = combineReducers({
-  submeter: "",
+  channels: channelReducer,
 });
 
 export default persistReducer(persisConfig, rootReducer);
