@@ -9,13 +9,13 @@ const ChannelCard = ({ data }) => {
   const option = ["Add to group", "Rename", "Recharge"];
   return (
     <div className="drop-shadow h-[180px] rounded-lg bg-white p-1 relative">
-      {selectedchannel == data?.channelid && (
+      {selectedchannel == data?.channelid ? (
         <ChannelOption
           selectedchannel={selectedchannel}
           channelId={data?.channelid}
           setselectedchannel={setselectedchannel}
         />
-      )}
+      ) : null}
 
       <div className="flex items-center justify-between mt-1">
         <div className="flex items-center justify-start">

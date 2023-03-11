@@ -19,6 +19,7 @@ import ProjectManagerDetails from "./screens/Dashboard/SysAdminDashboard/Project
 import CustomerManagerDetails from "./screens/Dashboard/SysAdminDashboard/CustomerManagerDetails";
 import { ProfileContextProvider } from "./context/profileContext";
 import { ChannelContextProvider } from "./context/channelContext";
+import AllChannels from "./screens/channels/Allchannels";
 
 function App() {
   return (
@@ -38,6 +39,8 @@ function App() {
               path="/completeregistration"
               element={<CompleteRegistration />}
             />
+            <Route path="allchannels" element={<AllChannels />} />
+
             {/* UserDashboard */}
             <Route path="dashboard" element={<UserDashboard />} />
             <Route

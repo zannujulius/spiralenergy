@@ -24,6 +24,7 @@ import Skimmer from "../../../components/Loader/Skimmer";
 import { ProfileContext } from "../../../context/profileContext";
 import { updateProfile } from "../../../redux/slice/profileSlice";
 import { ChannelContext } from "../../../context/channelContext";
+import { Link } from "react-router-dom";
 
 const MUserDashboard = () => {
   // meter
@@ -72,7 +73,6 @@ const MUserDashboard = () => {
         setloading(false);
       } catch (err) {
         errorBlock(err);
-        console.log(err.message);
       }
     })();
   }, []);
@@ -179,7 +179,12 @@ const MUserDashboard = () => {
         <div className="">
           <div className="flex items-center justify-between mt-6">
             <div className="font-Kanit font-semibold ">My Channels</div>
-            <div className="underline text-secondary font-light">View all</div>
+            <Link
+              to="/allchannels"
+              className="underline text-secondary font-light"
+            >
+              View all
+            </Link>
           </div>
 
           {/* if we have channels */}
