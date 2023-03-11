@@ -1,7 +1,28 @@
+import { useContext, useEffect } from "react";
+import { toast } from "react-hot-toast";
 import { HiViewGrid } from "react-icons/hi";
 import { IoNotificationsSharp } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { ProfileContext } from "../../context/profileContext";
+import { updateProfile } from "../../redux/slice/profileSlice";
 
 const LayoutMobile = ({ children, pageTitle }) => {
+  const { profileData } = useContext(ProfileContext);
+  const dispatch = useDispatch();
+  const { profile } = useSelector((state) => state.profiles);
+  useEffect(() => {
+    (async () => {
+      try {
+        let result = await profileData();
+        // console.log(result)
+        dispatch(updateProfile(result));
+      } catch (err) {
+        toast.error(err.message);
+      }
+    })();
+    return () => {};
+  }, []);
+
   return (
     <div className="w-screen h-screen lg:hidden md:hidden block pt-4 pb-[100px]">
       <div className="fixed top-0 z-20 bg-white drop-shadow-md w-full px-2 py-3 ">
