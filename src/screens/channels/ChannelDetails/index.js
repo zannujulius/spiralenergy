@@ -133,7 +133,7 @@ const ChannelDetails = () => {
     (async () => {
       try {
         let res = await getCommandsByUser(id, startdate, enddate, 0, 12);
-        console.log(res);
+        setcommands(res?.body);
         // setusers();
         setloading((prev) => {
           return {
@@ -277,7 +277,7 @@ const ChannelDetails = () => {
           </div>
         </div>
         <div className="">
-          <CommandsTable />
+          <CommandsTable data={commands} />
         </div>
       </div>
     </Layout>
