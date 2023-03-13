@@ -9,7 +9,7 @@ const ChannelCard = ({ data }) => {
   const [selectedchannel, setselectedchannel] = useState(null);
   const option = ["Add to group", "Rename", "Recharge"];
   return (
-    <div className="drop-shadow h-[180px] rounded-lg bg-white p-1 relative">
+    <div className="drop-shadow-md h-[180px] rounded-lg border bg-white p-1 relative">
       {selectedchannel == data?.channelid ? (
         <ChannelOption
           selectedchannel={selectedchannel}

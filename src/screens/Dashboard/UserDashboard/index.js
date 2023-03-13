@@ -6,39 +6,74 @@ import { Button } from "../../../components/Button";
 import { Link } from "react-router-dom";
 import { IoAddCircleOutline } from "react-icons/io5";
 import AddToGroup from "../../../components/Channels/Groups/AddToGroup";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ChannelCard from "../../../components/Channels/ChannelCard";
 import AddMeter from "../../../components/Meter/AddMeter";
 import MUserDashboard from "../../../screensMobile/MobileDashboard/MUserDashboard";
+import { ChannelContext } from "../../../context/channelContext";
+import { errorBlock } from "../../../controllers/errorBlock";
+import { useDispatch, useSelector } from "react-redux";
+import { updateChannels } from "../../../redux/slice/channelSlice";
+import axios from "../../../utils/axios";
+import ChannelPill from "../../../components/Channels/ChannelPill";
+import ChannelMoreBtn from "../../../components/Channels/ChannelMoreBtn";
+import { channelController } from "../../../controllers/channelController";
+import { toast } from "react-hot-toast";
 
 const UserDashboard = () => {
   const [modal, setmodal] = useState({
     group: false,
   });
+  const dispatch = useDispatch();
   const [metermodal, setmetermodal] = useState(false);
   const [groupmodal, setgroupmodal] = useState(false);
-  
-  const ChannelPill = () => {
-    return (
-      <div className="rounded-full flex item-center border-[1px] drop-shadow-sm bg-white border-gray-200 px-3 py-2 mx-2 cursor-pointer">
-        <div className="pr-2">
-          <HiRectangleGroup color={"#000000"} size={18} />
-        </div>
-        <div className="text-primary font-light text-sm ">Dinning hall</div>
-      </div>
-    );
-  };
+  const [loading, setloading] = useState(false);
+  const [limit, setlimit] = useState(12);
+  const [data, setdata] = useState([]);
+  const [offset, setoffset] = useState(0);
+  const [groupprefix, setgroupprefix] = useState("");
+  const { getAllChannels } = useContext(ChannelContext);
+  const channels = useSelector((state) => state.channels);
+  useEffect(() => {
+    (async () => {
+      try {
+        let res = await axios.post("/submeter/getallchannels", {
+          groupprefix,
+          limit,
+          offset,
+        });
 
-  const ChannelMoreBtn = () => {
-    return (
-      <div className="rounded-full flex item-center border-[1px] drop-shadow-sm bg-primary px-3 py-2 mx-2 cursor-pointer">
-        <div className="pr-2">
-          <HiRectangleGroup color={"white"} size={18} />
-        </div>
-        <div className="text-white font-light text-sm ">See All</div>
-      </div>
-    );
-  };
+        const result = channelController(res);
+
+        if (result.type !== "success") {
+          toast.error(result.message);
+          setloading(false);
+          return;
+        }
+        const item = result.message.body.map((item, index) => {
+          if (item.type == "group") {
+            return {
+              alias: item.alias,
+              channelid: item.alias,
+              type: item.type,
+              billingactive: false,
+            };
+          } else if (item.type == "single") {
+            return {
+              alias: item.alias,
+              channelid: item.channelid,
+              type: item.type,
+              billingactive: item.billingactive,
+            };
+          }
+        });
+        setdata(item);
+      } catch (err) {
+        errorBlock(err);
+      }
+    })();
+    return () => {};
+  }, []);
 
   return (
     <>
@@ -76,7 +111,7 @@ const UserDashboard = () => {
               </div>
             </div>
             <div className="mt-4 max-w-full overflow-x-scroll overflow-y-hidden w-[100%]">
-              <div className="flex items-start overflow-x-scroll overflow-y-hidden w-[2000px]">
+              <div className="flex items-start overflow-x-scroll overflow-y-hidden w-[1500px]">
                 {Array.from(Array(7)).map((_, i) => (
                   <ChannelPill key={i} />
                 ))}
@@ -101,13 +136,9 @@ const UserDashboard = () => {
               </div>
             </div>
             <div className="mt-4 max-w-full">
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-8 px-2 py-2">
-                {[
-                  { channelId: "HSXN233333", name: "Buld" },
-                  { channelId: "0892348k93", name: "Socket" },
-                  { channelId: "jsuh277700", name: "Pumping Machine" },
-                ].map((i) => (
-                  <ChannelCard key={i?.channelId} data={i} />
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-4 px-2 py-2">
+                {data.map((i) => (
+                  <ChannelCard key={i?.alias} data={i} />
                 ))}
               </div>
             </div>

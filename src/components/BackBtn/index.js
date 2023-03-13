@@ -7,17 +7,17 @@ const BackBtn = ({ text }) => {
   let navigate = useNavigate();
   return (
     <div
-      className="back-btn d-flex align-items-center "
+      className="back-btn flex align-items-center w-[fit-content] cursor-pointer mb-2 p-2"
       onClick={() => navigate(-1)}
       style={{
-        width: "200px",
-        cursor: "pointer",
         fontSize: 14,
       }}
     >
-      <IoChevronBack size={15} color={color.baseColor} />
+      <div className="flex align-items-center justify-center pt-1 underline">
+        <IoChevronBack size={15} color={"gray"} />
+      </div>
       <div
-        className="back-btn__title px-1"
+        className="back-btn__title px-1 text-secondary font-semibold underline"
         style={{
           color: color.baseColor,
         }}
