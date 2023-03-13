@@ -1,20 +1,33 @@
-import { AiFillCloseCircle } from "react-icons/ai";
+import { VscClose } from "react-icons/vsc";
+import Backdrop from "../Backdrop";
 
-const Drawer = ({ children }) => {
+const Drawer = ({
+  children,
+  title = "Drawer title",
+  caption = "Caption",
+  open,
+  setopen,
+}) => {
   return (
-    <div className="fixed">
-      <div className="flex items-center justify-between">
-        <div className="">
-          <div className="">Title</div>
-          <div className="">Caption</div>
+    <Backdrop setopen={setopen} open={open}>
+      <div
+        className="fixed h-screen w-[400px] p-2 bg-white drop-shadow-md right-0 animate__animated animate__fadeInRight"
+        style={{
+          display: open ? "block" : "block",
+        }}
+      >
+        <div className="flex items-start justify-between pt-3">
+          <div className="">
+            <div className="font-semibold text-[17px]">{title}</div>
+            <div className="text-gray-700 font-light">{caption}</div>
+          </div>
+          <div className="p-2 cursor-pointer" onClick={() => setopen(false)}>
+            <VscClose size={22} />
+          </div>
         </div>
-        <div className="">
-          <AiFillCloseCircle />
-        </div>
+        <div className="">{children}</div>
       </div>
-
-      <div className="">{children}</div>
-    </div>
+    </Backdrop>
   );
 };
 

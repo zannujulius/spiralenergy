@@ -1,6 +1,12 @@
-const Backdrop = ({ children }) => {
+const Backdrop = ({ children, setopen, open }) => {
   return (
-    <div className="fixed h-screen w-screen bg-[red] top-0 left-0">
+    <div
+      className="fixed h-screen w-screen bg-[#00000036] top-0 right-0 z-50"
+      style={{
+        display: open ? "block" : "none",
+      }}
+      onClick={() => setopen(false)}
+    >
       {children}
     </div>
   );

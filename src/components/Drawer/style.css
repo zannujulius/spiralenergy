@@ -1,0 +1,16 @@
+.drawer-cover {
+  animation-name: slide-right;
+  animation-duration: 2s;
+  animation-timing-function: ease;
+  animation-direction: linear;
+  right: 0 !important;
+}
+
+@keyframes slide-right {
+  from {
+    right: -350px;
+  }
+  to {
+    right: 0;
+  }
+}

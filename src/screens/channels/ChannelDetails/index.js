@@ -15,13 +15,21 @@ import { useParams } from "react-router-dom";
 import Skimmer from "../../../components/Loader/Skimmer";
 import moment from "moment";
 import NoPlanImg from "../../../assets/svg/7952173_receipt_paper_transation_check_sale_icon.svg";
-
+import Drawer from "../../../components/Drawer";
+import ModalCover from "../../../components/ModalCover";
+import { VscClose } from "react-icons/vsc";
+import ScheduleImg from "../../../assets/png/Screenshot 2023-03-13 at 21.05.17.png";
+import CON from "../../../components/Commands/CON";
 const ChannelDetails = () => {
   const { id } = useParams();
   const [startdate, setstartdate] = useState(
     moment(Date.now()).startOf("month").format("YYYY-MM-DD HH:mm:ss")
   );
-
+  const [tabstate, settabstate] = useState(1);
+  const [openshedule, setopenshedule] = useState(false);
+  const [opensheduledrawer, setopensheduledrawer] = useState(false);
+  const [selectedday, setselectedday] = useState("today");
+  const [selectedpowerstate, setselectedpowerstate] = useState("");
   const [enddate, setenddate] = useState(
     moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")
   );
@@ -34,7 +42,10 @@ const ChannelDetails = () => {
     moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")
   );
 
-  const [energydata, setenergydata] = useState([]);
+  const [energydata, setenergydata] = useState({
+    max: 0,
+    data: [],
+  });
   const [updated, setupdated] = useState(false);
   const [commands, setcommands] = useState([]);
   const {
@@ -175,9 +186,12 @@ const ChannelDetails = () => {
           startdateenergy,
           enddateenergy
         );
-        setenergydata(res?.body);
-        // setcommands(res?.body);
-        console.log(res?.body, "//response");
+        setenergydata((prev) => {
+          return {
+            data: res?.body,
+            max: res?.meta?.totalactiveenergyln1,
+          };
+        });
         // setusers();
         setloading((prev) => {
           return {
@@ -203,7 +217,7 @@ const ChannelDetails = () => {
       <div className="grid grid-cols-4 lg:grid-cols-4 md:grid-cols-4 mt-8 mb-6 gap-8">
         <div className="h-[120px] p-2 bg-white rounded-md drop-shadow-md relative">
           <div className="pt-1">
-            <div className="font-light text-gray-700">Name of channel</div>
+            <div className="font-light text-gray-700">Name of meter</div>
             <div className="font-semibold">
               {loading.channel ? (
                 <Skimmer width={"120px"} heigth={"30px"} />
@@ -212,10 +226,13 @@ const ChannelDetails = () => {
               )}
             </div>
           </div>
-          <div className="font-normal hover:text-secondary text-[13px] pt-1 absolute bottom-1 left-2  text-[#7e6eda] underline cursor-pointer w-[60%]">
+          <div
+            onClick={() => setopenshedule(true)}
+            className="font-normal hover:text-secondary text-[13px] pt-1 absolute bottom-1 left-2  text-[#7e6eda] underline cursor-pointer w-[60%]"
+          >
             Schedule connection state on channel
           </div>
-          <div className="flex items-center absolute bottom-[20px] right-[15px] w-[45px] h-[45px] bg-white drop-shadow-lg cursor-pointer justify-center p-2 rounded-full border-[2px] border-green-500">
+          <div className="flex items-center absolute bottom-[15px] right-[15px] w-[45px] h-[45px] bg-white drop-shadow-lg cursor-pointer justify-center p-2 rounded-full border-[2px] border-green-500">
             <IoPower color="green" size={23} />
           </div>
         </div>
@@ -229,9 +246,68 @@ const ChannelDetails = () => {
           <div className="font-normal hover:text-secondary text-[13px] pt-1 absolute bottom-1 left-2  text-[#7e6eda] underline cursor-pointer w-[60%]">
             View users
           </div>
-          <div className="flex items-center absolute bottom-[20px] right-[15px] w-[50px] h-[50px] bg-white drop-shadow-lg cursor-pointer justify-center p-2 rounded-full border-[2px] border-teal-400 p-2">
+          <div className="flex items-center absolute bottom-[15px] right-[15px] w-[50px] h-[50px] bg-white drop-shadow-lg cursor-pointer justify-center p-2 rounded-full border-[2px] border-teal-400 p-2">
             <div className="font-bold text-2xl">
               {loading.user ? "" : users.count}
+            </div>
+          </div>
+        </div>
+        {/* energy */}
+        <div className="h-[120px] p-2 bg-white rounded-md drop-shadow-md relative">
+          <div className="pt-1">
+            <div className="font-light text-gray-700">Consumption </div>
+            <div className="font-semibold w-[80%]">
+              Maximum energy reached {selectedday}.
+            </div>
+          </div>
+          <div className="font-normal hover:text-secondary text-[13px] pt-1 absolute bottom-1 left-2  text-[#7e6eda] underline cursor-pointer w-[60%]">
+            <Select
+              defaultValue={"today"}
+              placeholder="Select a date."
+              onChange={(e) => {
+                if (e == "today") {
+                  setstartdateenergy(
+                    moment(Date.now())
+                      .startOf("today")
+                      .format("YYYY-MM-DD HH:mm:ss")
+                  );
+                  setselectedday("today");
+                } else if (e == "week") {
+                  setstartdateenergy(
+                    moment(Date.now())
+                      .startOf("week")
+                      .format("YYYY-MM-DD HH:mm:ss")
+                  );
+                  setselectedday("this week");
+                } else if (e == "month") {
+                  setstartdateenergy(
+                    moment(Date.now())
+                      .startOf("month")
+                      .format("YYYY-MM-DD HH:mm:ss")
+                  );
+                  setselectedday("this month");
+                } else if (e == "year") {
+                  setstartdateenergy(
+                    moment(Date.now())
+                      .subtract("1", "year")
+                      .format("YYYY-MM-DD HH:mm:ss")
+                  );
+                  setselectedday("this year");
+                }
+                setenddateenergy(
+                  moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")
+                );
+                setupdated((prev) => !prev);
+              }}
+              options={dateOptions}
+              style={{
+                width: 130,
+              }}
+            />
+          </div>
+          <div className="flex items-center absolute bottom-[10px] right-[15px] bg-white drop-shadow-lg cursor-pointer justify-center rounded-full border-[2px] border-orange-400 p-2">
+            <div className="font-bold text-[17px]">
+              {!energydata ? "0.00" : parseFloat(energydata?.max).toFixed(2)}kWh
             </div>
           </div>
         </div>
@@ -349,23 +425,124 @@ const ChannelDetails = () => {
             </div>
           </div>
           <div className="h-[400px]">
-            <MBarCharts data={energydata} />
+            <MBarCharts data={energydata?.data} />
           </div>
         </div>
       </div>
       <div className="bg-white rounded-md drop-shadow-md p-2 mt-6 mb-[100px]">
-        <div className="flex alignn items-center justify-between">
+        <div className="flex items-center justify-between ">
           <div className="font-semibold">
-            list of commands issues on your channels
+            List of commands issues on your channels
           </div>
-          <div className="font-semibold text-linkcolor underline cursor-pointer">
+          <div className="hidden font-semibold text-linkcolor underline cursor-pointer">
             View all commands
           </div>
         </div>
+        <div className="mx-auto w-[60%] flex items-center justify-center">
+          <div
+            className="w-[fit-content] font-weight px-2 py-1 mx-2 cursor-pointer "
+            style={{
+              color: tabstate == 1 ? "#000" : "#bbb",
+              textDecoration: tabstate == 1 ? "underline" : "none",
+            }}
+            onClick={() => settabstate(1)}
+          >
+            Commands issued by you
+          </div>
+          <div
+            className="w-[fit-content] font-weight px-2 py-1 mx-2 cursor-pointer"
+            style={{
+              color: tabstate == 2 ? "#000" : "#bbb",
+              textDecoration: tabstate == 2 ? "underline" : "none",
+            }}
+            onClick={() => settabstate(2)}
+          >
+            Commands issued by Others
+          </div>
+        </div>
         <div className="">
-          <CommandsTable data={commands} />
+          <CommandsTable data={commands} tabstate={tabstate} />
         </div>
       </div>
+
+      {/* modals */}
+
+      {/* {openshedule && ( */}
+      <ModalCover open={openshedule} setopen={setopenshedule}>
+        <div className="h-auto w-full py-3 px-2">
+          <div className="flex items-center justify-between w-full">
+            <div className="text-gray-800 font-semibold">
+              Schedule powerstate
+            </div>
+            <div
+              className="cursor-pointer"
+              onClick={() => setopenshedule(false)}
+            >
+              <VscClose size={21} />
+            </div>
+          </div>
+          <div
+            className="flex items-center justify-center cursor-pointer py-1"
+            onClick={() => {
+              setselectedpowerstate("con");
+              setopenshedule(false);
+              setopensheduledrawer(true);
+            }}
+          >
+            <div className="w-[45px] h-[45px] flex items-center justify-center">
+              <img src={ScheduleImg} className="w-full h-full" />
+            </div>
+            <div className="ml-3 py-2">
+              <div className="font-semibold text-gray-800">
+                Schedule connection
+              </div>
+              <div className="font-light text-gray-700 w-full">
+                Use this option to select date when your channel will turn on.
+              </div>
+            </div>
+          </div>
+          <hr className="border-[0.3px] border-gray-300" />
+          <div
+            className="flex items-center justify-center cursor-pointer py-1"
+            onClick={() => {
+              setselectedpowerstate("dis");
+              setopenshedule(false);
+              setopensheduledrawer(true);
+            }}
+          >
+            <div className="w-[45px] h-[45px] flex items-center justify-center">
+              <img src={ScheduleImg} className="w-full h-full" />
+            </div>
+            <div className="ml-3 py-2">
+              <div className="font-semibold text-gray-800">
+                Schedule disconnection
+              </div>
+              <div className="font-light text-gray-700 w-full">
+                Use this option to select date when your channel should turn
+                off.
+              </div>
+            </div>
+          </div>
+        </div>
+      </ModalCover>
+      {/* )} */}
+      {/* Drawer */}
+      <Drawer
+        open={opensheduledrawer}
+        setopen={setopensheduledrawer}
+        title={
+          selectedpowerstate == "con"
+            ? "Schedule a connection time"
+            : "Schedule a disconnection time"
+        }
+        caption={
+          selectedpowerstate == "con"
+            ? "Fill in the field to set a connection time on your channel"
+            : "Fill in the field to set a disconnection time on your channel"
+        }
+      >
+        <CON />
+      </Drawer>
     </Layout>
   );
 };
