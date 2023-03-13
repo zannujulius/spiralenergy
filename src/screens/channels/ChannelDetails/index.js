@@ -26,18 +26,30 @@ const ChannelDetails = () => {
     moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")
   );
 
+  const [startdateenergy, setstartdateenergy] = useState(
+    moment(Date.now()).startOf("month").format("YYYY-MM-DD HH:mm:ss")
+  );
+
+  const [enddateenergy, setenddateenergy] = useState(
+    moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")
+  );
+
+  const [energydata, setenergydata] = useState([]);
+  const [updated, setupdated] = useState(false);
   const [commands, setcommands] = useState([]);
   const {
     getChannelInfo,
     getUsersonChannel,
     getAllPaymentPlanOnChannel,
     getCommandsByUser,
+    getEnergyConsumption,
   } = useContext(ChannelContext);
   const [loading, setloading] = useState({
     channel: false,
     user: true,
     plans: true,
     commands: true,
+    energy: false,
   });
   const [plans, setplans] = useState([]);
   const [channelData, setchannelData] = useState({});
@@ -154,8 +166,39 @@ const ChannelDetails = () => {
     })();
     return () => {};
   }, []);
+  // energy
+  useEffect(() => {
+    (async () => {
+      try {
+        let res = await getEnergyConsumption(
+          id,
+          startdateenergy,
+          enddateenergy
+        );
+        setenergydata(res?.body);
+        // setcommands(res?.body);
+        console.log(res?.body, "//response");
+        // setusers();
+        setloading((prev) => {
+          return {
+            ...prev,
+            energy: false,
+          };
+        });
+      } catch (err) {
+        errorBlock(err);
+        setloading((prev) => {
+          return {
+            ...prev,
+            energy: false,
+          };
+        });
+      }
+    })();
+    return () => {};
+  }, [updated]);
 
-  https: return (
+  return (
     <Layout>
       <div className="grid grid-cols-4 lg:grid-cols-4 md:grid-cols-4 mt-8 mb-6 gap-8">
         <div className="h-[120px] p-2 bg-white rounded-md drop-shadow-md relative">
@@ -267,6 +310,37 @@ const ChannelDetails = () => {
               <Select
                 defaultValue={"today"}
                 placeholder="Select a date."
+                onChange={(e) => {
+                  if (e == "today") {
+                    setstartdateenergy(
+                      moment(Date.now())
+                        .startOf("today")
+                        .format("YYYY-MM-DD HH:mm:ss")
+                    );
+                  } else if (e == "week") {
+                    setstartdateenergy(
+                      moment(Date.now())
+                        .startOf("week")
+                        .format("YYYY-MM-DD HH:mm:ss")
+                    );
+                  } else if (e == "month") {
+                    setstartdateenergy(
+                      moment(Date.now())
+                        .startOf("month")
+                        .format("YYYY-MM-DD HH:mm:ss")
+                    );
+                  } else if (e == "year") {
+                    setstartdateenergy(
+                      moment(Date.now())
+                        .subtract("1", "year")
+                        .format("YYYY-MM-DD HH:mm:ss")
+                    );
+                  }
+                  setenddateenergy(
+                    moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")
+                  );
+                  setupdated((prev) => !prev);
+                }}
                 options={dateOptions}
                 style={{
                   width: 150,
@@ -275,7 +349,7 @@ const ChannelDetails = () => {
             </div>
           </div>
           <div className="h-[400px]">
-            <MBarCharts />
+            <MBarCharts data={energydata} />
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import React, { createContext, useState } from "react";
 import { channelController } from "../controllers/channelController";
 import { errorBlock } from "../controllers/errorBlock";
 import { getToken } from "../utils/token";
+import moment from "moment";
 export const ChannelContext = createContext();
 
 const channelReducer = () => {
@@ -183,6 +184,38 @@ const channelReducer = () => {
             channelid,
           }
         );
+        let result = channelController(res);
+        const { message } = result;
+        return message;
+      } catch (err) {
+        return errorBlock(err);
+      }
+    },
+    getEnergyConsumption: async (channelid, startdate, enddate) => {
+      try {
+        let username = await getToken("spiral_username");
+        let res = await axios.post("/powerquality/analytics", {
+          dcuids: "[]",
+          endactiveenergyln1: 0,
+          endapparentpowerln1: 0,
+          endcurrentln1: 0,
+          enddate: enddate || moment(Date.now()).format("YYY-MM-DD HH:mm:ss"),
+          endfreqln1: 0,
+          endpfln1: 0,
+          endrealpowerln1: 0,
+          endvoltageln1: 0,
+          meterids: JSON.stringify([channelid]),
+          startactiveenergyln1: 0,
+          startapparentpowerln1: 0,
+          startcurrentln1: 0,
+          startdate:
+            startdate ||
+            moment(Date.now()).startOf("day").format("YYY-MM-DD HH:mm:ss"),
+          startfreqln1: 0,
+          startpfln1: 0,
+          startrealpowerln1: 0,
+          startvoltageln1: 0,
+        });
         let result = channelController(res);
         const { message } = result;
         return message;

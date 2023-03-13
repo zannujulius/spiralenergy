@@ -1,22 +1,25 @@
 import Chart from "chart.js/auto";
+import moment from "moment";
 import { Bar } from "react-chartjs-2";
+const MBarCharts = ({ data }) => {
+  const mapData = !data
+    ? []
+    : data?.map((i) => moment(i?.pqdatetime).format("ll"));
 
-const MBarCharts = ({}) => {
+  const chartData = !data
+    ? []
+    : data?.map((i) => moment(i?.activeenergyln1).format("ll"));
   return (
     <Bar
       data={{
-        labels: Array.from(Array(100)).map(
-          () => Math.floor(Math.random() * 100) + 1
-        ),
+        labels: mapData,
         datasets: [
           {
             type: "line",
             label: "Energy",
             fill: false,
             backgroundColor: "",
-            data: Array.from(Array(100)).map(
-              () => Math.floor(Math.random() * 100) + 1
-            ),
+            data: chartData,
             borderColor: "dodgerblue",
             // barThickness: 30,
             radius: 1,
