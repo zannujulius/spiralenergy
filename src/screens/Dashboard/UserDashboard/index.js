@@ -97,7 +97,7 @@ const UserDashboard = () => {
               <Button text={"Manage account"} />
             </Link>
           </div>
-          <div className=" mt-8">
+          <div className=" mt-8 hidden">
             <div className="flex items-center justify-between px-2">
               <div className="font-semibold text-primary">Grouped Channels</div>
               <div
@@ -120,7 +120,7 @@ const UserDashboard = () => {
             </div>
           </div>
           <hr className="my-6" />
-          <div className="">
+          <div className="bg-white drop-shadow-md p-2">
             <div className="flex items-center justify-between px-2">
               <div className="font-semibold text-primary">Your Channels</div>
               <div className="flex items-center justify-center cursor-pointer  ">

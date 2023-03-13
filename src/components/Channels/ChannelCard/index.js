@@ -39,7 +39,11 @@ const ChannelCard = ({ data }) => {
       </div>
 
       <Link
-        to={data?.type == "single" ? "/channel/:id" : "/group/channels"}
+        to={
+          data?.type == "single"
+            ? `/channel/${data?.channelid}`
+            : "/group/channels"
+        }
         className="pl-3 mt-3 absolute h-[100px] top-[20px] w-full pt-8"
       >
         <div className="text-[14px] text-gray-400 font-normal">

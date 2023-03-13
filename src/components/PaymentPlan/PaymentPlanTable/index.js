@@ -1,4 +1,6 @@
-const PaymentPlanTable = () => {
+import { stringShorter } from "../../../helperFuncs";
+
+const PaymentPlanTable = ({ data }) => {
   return (
     <div className="w-full mt-4">
       <table className="w-full">
@@ -14,19 +16,21 @@ const PaymentPlanTable = () => {
           <th className="font-normal p-1 text-center text-gray-800">Action</th>
         </thead>
         <tbody>
-          {Array.from(Array(7)).map((i, index) => (
+          {data.map((i, index) => (
             <tr
               key={index}
               className={"border-none even:bg-[#f5f5f6] cursor-pointer"}
             >
               <td className="text-center text-gray-700">{index + 1}</td>
-              <td className="text-center text-gray-700">Weekend Plan</td>
-              <td className="text-center text-gray-700">2,000</td>
               <td className="text-center text-gray-700">
-                to be use on weekend...
+                {i?.planalias.substring(0, i?.planalias.length - 20)}...
+              </td>
+              <td className="text-center text-gray-700">{i?.amount}</td>
+              <td className="text-center text-gray-700">
+                {stringShorter(i?.description, 10)}
               </td>
               <td className="text-center text-gray-700">
-                <div className="border-[0.5px] cursor-pointer border-[#2b2b2b] rounded-md">
+                <div className="bg-gradient-to-r from-sky-500 to-indigo-500 text-white py-0 rounded-md">
                   Buy
                 </div>
               </td>
