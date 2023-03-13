@@ -14,6 +14,7 @@ import { errorBlock } from "../../../controllers/errorBlock";
 import { useParams } from "react-router-dom";
 import Skimmer from "../../../components/Loader/Skimmer";
 import moment from "moment";
+import NoPlanImg from "../../../assets/svg/7952173_receipt_paper_transation_check_sale_icon.svg";
 
 const ChannelDetails = () => {
   const { id } = useParams();
@@ -194,7 +195,7 @@ const ChannelDetails = () => {
       </div>
       <div className="mx-auto w-[80%] grid grid-cols-3 lg:grid-cols-3 gap-10">
         <div className="add-user p-2 rounded-lg drop-shadow-md bg-gradient-to-r from-sky-500 to-indigo-500 h-[90px] relative">
-          <div className="absolute bottom-1 right-1">
+          <div className="absolute bottom-1 right-1 hidden">
             <FaUsers size={30} />
           </div>
           <div className="mt-1">
@@ -240,7 +241,18 @@ const ChannelDetails = () => {
             </div>
           </div>
           <div className="h-[400px]">
-            <PaymentPlanTable data={plans} />
+            {!plans.length ? (
+              <div className="flex flex-col h-full items-center justify-center">
+                <div className="w-[60px] h-[60px] ">
+                  <img src={NoPlanImg} className="w-full h-full" />
+                </div>
+                <div className="pt-2">
+                  No payment plan available on the channel at the moment.
+                </div>
+              </div>
+            ) : (
+              <PaymentPlanTable data={plans} />
+            )}
           </div>
         </div>
         <div className="bg-white rounded-md p-2 drop-shadow">
