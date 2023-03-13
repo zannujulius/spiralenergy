@@ -20,7 +20,7 @@ export const Button = ({
     <button
       onClick={onClick}
       disabled={loading}
-      className="w-100 h-[50px] flex items-center justify-center cursor-pointer rounded bg-gray-900"
+      className="w-100 h-[40px] flex items-center justify-center cursor-pointer rounded bg-gray-900"
       style={{
         // background: bg || themeColor.black,
         width: "100%",
@@ -35,7 +35,7 @@ export const Button = ({
         />
       ) : (
         <div
-          className="font-normal t"
+          className="font-light "
           style={{
             color: color || themeColor.white,
           }}

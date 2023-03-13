@@ -35,7 +35,10 @@ const SideNav = ({}) => {
             Dashboard
           </div>
         </Link>
-        <Link to="/" className="flex items-start px-6 py-2 my-8 cursor-pointer">
+        <Link
+          to="/allchannels"
+          className="flex items-start px-6 py-2 my-8 cursor-pointer"
+        >
           <div className="flex items-center justify-center pt-[2px]">
             <GoCircuitBoard size={21} color={iconColor("/channels")} />
           </div>

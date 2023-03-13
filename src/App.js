@@ -21,6 +21,7 @@ import { ProfileContextProvider } from "./context/profileContext";
 import { ChannelContextProvider } from "./context/channelContext";
 import AllChannels from "./screens/channels/Allchannels";
 import MChannelDetails from "./screensMobile/Channels/MChannelDetails";
+import ChannelDetails from "./screens/channels/ChannelDetails";
 
 function App() {
   return (
@@ -41,7 +42,7 @@ function App() {
               element={<CompleteRegistration />}
             />
             <Route path="allchannels" element={<AllChannels />} />
-            <Route path="channel/:id" element={<MChannelDetails />} />
+            <Route path="channel/:id" element={<ChannelDetails />} />
 
             {/* UserDashboard */}
             <Route path="dashboard" element={<UserDashboard />} />

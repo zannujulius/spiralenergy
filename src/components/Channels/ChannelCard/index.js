@@ -9,7 +9,7 @@ const ChannelCard = ({ data }) => {
   const [selectedchannel, setselectedchannel] = useState(null);
   const option = ["Add to group", "Rename", "Recharge"];
   return (
-    <div className="drop-shadow h-[180px] rounded-lg bg-white p-1 relative">
+    <div className="drop-shadow-md h-[180px] rounded-lg border bg-white p-1 relative">
       {selectedchannel == data?.channelid ? (
         <ChannelOption
           selectedchannel={selectedchannel}
@@ -39,7 +39,11 @@ const ChannelCard = ({ data }) => {
       </div>
 
       <Link
-        to={data?.type == "single" ? "/channel/:id" : "/group/channels"}
+        to={
+          data?.type == "single"
+            ? `/channel/${data?.channelid}`
+            : "/group/channels"
+        }
         className="pl-3 mt-3 absolute h-[100px] top-[20px] w-full pt-8"
       >
         <div className="text-[14px] text-gray-400 font-normal">

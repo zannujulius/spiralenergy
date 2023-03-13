@@ -8,18 +8,23 @@ import Skimmer from "../../../components/Loader/Skimmer";
 import ChannelCard from "../../../components/Channels/ChannelCard";
 import { updateChannels } from "../../../redux/slice/channelSlice";
 import { toast } from "react-hot-toast";
+import Layout from "../../../components/Layout";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import BackBtn from "../../../components/BackBtn";
 
 const AllChannels = () => {
   const dispatch = useDispatch();
   const { getAllChannels } = useContext(ChannelContext);
-  const [limit, setlimit] = useState(0);
+  const [limit, setlimit] = useState(12);
   const [offset, setoffset] = useState(0);
+  const [page, setpage] = useState(1);
   const [loading, setloading] = useState(true);
   const { allChannels, channelCount } = useSelector((state) => state.channels);
   useEffect(() => {
     (async () => {
       try {
-        let result = await getAllChannels("", 1000, 0);
+        let result = await getAllChannels("", limit, offset);
         const item = result.body.map((item, index) => {
           if (item.type == "group") {
             return {
@@ -47,9 +52,11 @@ const AllChannels = () => {
   }, []);
 
   return (
-    <LayoutMobile pageTitle={"Channels"}>
-      <div className=""></div>
-      <div className="pt-[80px] flex items-end justify-between cursor-pointer ">
+    <Layout pageTitle={"Channels"}>
+      <div className="pt-[10px] cursor-pointer ">
+        <div className="">
+          <BackBtn text={"Go back"} />
+        </div>
         <div className="">
           <div className="font-semibold font-Kanit text-[18px]">
             All Channels.
@@ -69,15 +76,15 @@ const AllChannels = () => {
         </div>
       </div>
       {loading ? (
-        <div className="grid grid-cols-2 gap-6 mt-4">
-          {Array.from(Array(6)).map((_, i) => (
+        <div className="h-[90vh] bg-white p-2 grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 gap-8 mt-4">
+          {Array.from(Array(12)).map((_, i) => (
             <div className="h-[190px] bg-white drop-shadow-sm" key={i}>
               <Skimmer heigth={"100%"} />
             </div>
           ))}
         </div>
       ) : !allChannels.length ? (
-        <div className=" h-[400px] mt-[50px] bg-white flex flex-col justify-center items-center">
+        <div className=" h-[90vh] mt-[50px] bg-white flex flex-col justify-center items-center">
           <div className=""></div>
           <div className="text-center font-semibold text-gray-700">
             You don't have any meter at the moment
@@ -93,13 +100,26 @@ const AllChannels = () => {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-6 mt-4">
-          {allChannels.map((i, index) => (
-            <ChannelCard key={index} data={i} />
-          ))}
+        <div className="mt-4 h-[90vh] bg-white p-3 drop-shadow-md rounded-lg mb-10">
+          <div className="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 gap-8 ">
+            {allChannels.map((i, index) => (
+              <ChannelCard key={index} data={i} />
+            ))}
+          </div>
+          <div className="flex items-center justify-between mt-6">
+            <div className="">Showing 0 of {allChannels?.length} channels</div>
+            <div className="flex items-center justify-end">
+              <div className="flex items-center justify-center border rounded-md p-2 cursor-pointer mx-2 ">
+                <IoIosArrowBack />
+              </div>
+              <div className="flex items-center justify-center border rounded-md p-2 cursor-pointer mx-2">
+                <IoIosArrowForward />
+              </div>
+            </div>
+          </div>
         </div>
       )}
-    </LayoutMobile>
+    </Layout>
   );
 };
 

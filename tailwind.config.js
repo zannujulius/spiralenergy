@@ -9,6 +9,7 @@ module.exports = {
         grey: "#f2f4f6",
         cyan: "#1ee3cf",
         black: "#000000",
+        linkcolor: "#7e6eda",
       },
     },
   },
