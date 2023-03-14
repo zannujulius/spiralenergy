@@ -68,6 +68,7 @@ const ChannelDetails = () => {
     count: 0,
     data: [],
   });
+  // channelInfo
   useEffect(() => {
     (async () => {
       try {
@@ -97,7 +98,7 @@ const ChannelDetails = () => {
     })();
     return () => {};
   }, []);
-
+  // users on channel
   useEffect(() => {
     (async () => {
       try {
@@ -127,7 +128,7 @@ const ChannelDetails = () => {
     })();
     return () => {};
   }, []);
-
+  // plans
   useEffect(() => {
     (async () => {
       try {
@@ -360,7 +361,7 @@ const ChannelDetails = () => {
             </div>
           </div>
           <div className="h-[400px]">
-            {!plans.length ? (
+            {!plans ? (
               <div className="flex flex-col h-full items-center justify-center">
                 <div className="w-[60px] h-[60px] ">
                   <img src={NoPlanImg} className="w-full h-full" />
@@ -370,7 +371,7 @@ const ChannelDetails = () => {
                 </div>
               </div>
             ) : (
-              <PaymentPlanTable data={plans} />
+              <PaymentPlanTable data={!plans.length ? [] : plans} />
             )}
           </div>
         </div>
@@ -379,7 +380,7 @@ const ChannelDetails = () => {
             <div className="">
               <div className="font-semibold">Energy consumption on channel</div>
               <div className="italic hover:text-secondary underline cursor-pointer text-[#7e6eda] font-light text-[15px] p-1">
-                View realtime consumption
+                View advanced chart
               </div>
             </div>
             <div className="">
@@ -425,7 +426,7 @@ const ChannelDetails = () => {
             </div>
           </div>
           <div className="h-[400px]">
-            <MBarCharts data={energydata?.data} />
+            <MBarCharts data={!energydata?.data ? [] : energydata?.data} />
           </div>
         </div>
       </div>
@@ -461,7 +462,7 @@ const ChannelDetails = () => {
           </div>
         </div>
         <div className="">
-          <CommandsTable data={commands} tabstate={tabstate} />
+          <CommandsTable data={!commands ? [] : commands} tabstate={tabstate} />
         </div>
       </div>
 

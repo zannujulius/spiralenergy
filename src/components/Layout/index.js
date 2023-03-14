@@ -1,8 +1,8 @@
 // import "./style.css";
 
 import SideNav from "../SideNav";
+import SideNav1 from "../SideNav1";
 import TopNav from "../TopNav";
-
 const Layout = ({ children }) => {
   return (
     <div className="h-screen w-screen fixed items-start top-0 md:flex lg:flex left-0">

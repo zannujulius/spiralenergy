@@ -5,4 +5,5 @@ export const themeColor = {
   cyan: "#1ee3cf",
   white: "#fff",
   black: "#000000",
+  baseColor: "green",
 };

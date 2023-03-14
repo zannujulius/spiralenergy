@@ -103,10 +103,9 @@ const channelReducer = () => {
         });
         let result = channelController(res);
         const { message } = result;
-
         return message;
       } catch (err) {
-        return errorBlock(err);
+        errorBlock(err);
       }
     },
     getChannelInfo: async (channelid) => {
@@ -120,7 +119,7 @@ const channelReducer = () => {
         const { message } = result;
         return message;
       } catch (err) {
-        return errorBlock(err);
+        errorBlock(err);
       }
     },
     getAllUserDevices: async () => {

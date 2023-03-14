@@ -71,7 +71,7 @@ const CON = ({}) => {
           <div className="w-full h-[2px] bg-gray-700"></div>
         </div>
       </div>
-      <div className="border-[1px] border-[#eee] rounded-lg h-screen p-3">
+      <div className="border-[1px] mt-4 border-[#eee] rounded-lg h-[90vh] p-3">
         {/* step */}
         {step == 1 && (
           <div className="">

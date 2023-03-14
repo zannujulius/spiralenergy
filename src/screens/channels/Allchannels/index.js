@@ -16,7 +16,7 @@ import BackBtn from "../../../components/BackBtn";
 const AllChannels = () => {
   const dispatch = useDispatch();
   const { getAllChannels } = useContext(ChannelContext);
-  const [limit, setlimit] = useState(12);
+  const [limit, setlimit] = useState(15);
   const [offset, setoffset] = useState(0);
   const [page, setpage] = useState(1);
   const [loading, setloading] = useState(true);
@@ -42,10 +42,12 @@ const AllChannels = () => {
             };
           }
         });
+
         dispatch(updateChannels(item));
         setloading(false);
       } catch (err) {
         toast.error(err.message);
+        setloading(false);
       }
     })();
     return () => {};
@@ -54,17 +56,6 @@ const AllChannels = () => {
   return (
     <Layout pageTitle={"Channels"}>
       <div className="pt-[10px] cursor-pointer ">
-        <div className="">
-          <BackBtn text={"Go back"} />
-        </div>
-        <div className="">
-          <div className="font-semibold font-Kanit text-[18px]">
-            All Channels.
-          </div>
-          <div className="text-gray-400 text-start font-normal">
-            List of all the channels you have and the ones shared with you.
-          </div>
-        </div>
         <div
           className="hidden items-center justify-center border-[1px] border-secondary rounded-full p-1 "
           //   onClick={() => setaddmetermodal(true)}
@@ -75,50 +66,71 @@ const AllChannels = () => {
           <div className="text-secondary pl-2">Add device</div>
         </div>
       </div>
-      {loading ? (
-        <div className="h-[90vh] bg-white p-2 grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 gap-8 mt-4">
-          {Array.from(Array(12)).map((_, i) => (
-            <div className="h-[190px] bg-white drop-shadow-sm" key={i}>
-              <Skimmer heigth={"100%"} />
-            </div>
-          ))}
+
+      <div className="h-auto bg-white mb-[60px]">
+        <div className="">
+          <BackBtn text={"Go back"} />
         </div>
-      ) : !allChannels.length ? (
-        <div className=" h-[90vh] mt-[50px] bg-white flex flex-col justify-center items-center">
-          <div className=""></div>
-          <div className="text-center font-semibold text-gray-700">
-            You don't have any meter at the moment
+        <div className="px-3 py-2">
+          <div className="font-semibold font-Kanit text-[17px]">
+            All Channels.
           </div>
-          <div
-            className="w-[fit-content] mt-4 flex items-center justify-center border-[1px] border-secondary rounded-full p-1"
-            // onClick={() => setaddmetermodal(true)}
-          >
-            <div className="">
-              <BsPlusCircle size={20} color={themeColor.secondary} style={{}} />
-            </div>
-            <div className="text-secondary pl-2">Add meter</div>
+          <div className="text-gray-400 text-start font-normal">
+            List of all the channels you have and the ones shared with you.
           </div>
         </div>
-      ) : (
-        <div className="mt-4 h-[90vh] bg-white p-3 drop-shadow-md rounded-lg mb-10">
-          <div className="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 gap-8 ">
-            {allChannels.map((i, index) => (
-              <ChannelCard key={index} data={i} />
+        <hr className="border-[0.5px] border-gray-200" />
+        {loading ? (
+          <div className=" p-2 grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 gap-8 mt-4">
+            {Array.from(Array(15)).map((_, i) => (
+              <div className="h-[190px] drop-shadow-sm" key={i}>
+                <Skimmer heigth={"100%"} />
+              </div>
             ))}
           </div>
-          <div className="flex items-center justify-between mt-6">
-            <div className="">Showing 0 of {allChannels?.length} channels</div>
-            <div className="flex items-center justify-end">
-              <div className="flex items-center justify-center border rounded-md p-2 cursor-pointer mx-2 ">
-                <IoIosArrowBack />
+        ) : !allChannels.length ? (
+          <div className="mt-[50px] flex flex-col justify-center items-center">
+            <div className=""></div>
+            <div className="text-center font-semibold text-gray-700">
+              You don't have any meter at the moment
+            </div>
+            <div
+              className="w-[fit-content] mt-4 flex items-center justify-center border-[1px] border-secondary rounded-full p-1"
+              // onClick={() => setaddmetermodal(true)}
+            >
+              <div className="">
+                <BsPlusCircle
+                  size={20}
+                  color={themeColor.secondary}
+                  style={{}}
+                />
               </div>
-              <div className="flex items-center justify-center border rounded-md p-2 cursor-pointer mx-2">
-                <IoIosArrowForward />
+              <div className="text-secondary pl-2">Add meter</div>
+            </div>
+          </div>
+        ) : (
+          <div className="mt-4 p-3">
+            <div className="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 gap-8 ">
+              {allChannels.map((i, index) => (
+                <ChannelCard key={index} data={i} />
+              ))}
+            </div>
+            <div className="flex items-center justify-between mt-6">
+              <div className="">
+                Showing 0 of {allChannels?.length} channels
+              </div>
+              <div className="flex items-center justify-end">
+                <div className="flex items-center justify-center border rounded-md p-2 cursor-pointer mx-2 ">
+                  <IoIosArrowBack />
+                </div>
+                <div className="flex items-center justify-center border rounded-md p-2 cursor-pointer mx-2">
+                  <IoIosArrowForward />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </Layout>
   );
 };

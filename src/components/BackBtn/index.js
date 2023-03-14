@@ -16,14 +16,7 @@ const BackBtn = ({ text }) => {
       <div className="flex align-items-center justify-center pt-1 underline">
         <IoChevronBack size={15} color={"gray"} />
       </div>
-      <div
-        className="back-btn__title px-1 text-secondary font-semibold underline"
-        style={{
-          color: color.baseColor,
-        }}
-      >
-        {text}
-      </div>
+      <div className="px-1 text-secondary font-normal underline">{text}</div>
     </div>
   );
 };
