@@ -5,7 +5,6 @@ const Backdrop = ({ children, setopen, open }) => {
       style={{
         display: open ? "block" : "none",
       }}
-      onClick={() => setopen(false)}
     >
       {children}
     </div>

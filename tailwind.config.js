@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
@@ -10,6 +11,9 @@ module.exports = {
         cyan: "#1ee3cf",
         black: "#000000",
         linkcolor: "#7e6eda",
+      },
+      fontFamily: {
+        Kanit: ["Kanit", ...defaultTheme.fontFamily.sans],
       },
     },
   },

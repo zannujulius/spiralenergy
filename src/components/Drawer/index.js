@@ -9,11 +9,11 @@ const Drawer = ({
   setopen,
 }) => {
   return (
-    <Backdrop setopen={setopen} open={open}>
+    <Backdrop open={open}>
       <div
-        className="fixed h-screen w-[400px] p-2 bg-white drop-shadow-md right-0 animate__animated animate__fadeInRight"
+        className="fixed h-screen w-[400px] p-2 bg-white drop-shadow-md right-0 animate__animated animate__fadeInRight z-[2000px]"
         style={{
-          display: open ? "block" : "block",
+          display: open ? "block" : "none",
         }}
       >
         <div className="flex items-start justify-between pt-3">
