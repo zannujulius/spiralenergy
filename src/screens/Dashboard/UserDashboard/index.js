@@ -19,7 +19,10 @@ import ChannelPill from "../../../components/Channels/ChannelPill";
 import ChannelMoreBtn from "../../../components/Channels/ChannelMoreBtn";
 import { channelController } from "../../../controllers/channelController";
 import { toast } from "react-hot-toast";
-
+import Skimmer from "../../../components/Loader/Skimmer";
+import { BsPlusCircle } from "react-icons/bs";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import ChannelImg from "../../../assets/png/channelimg.png";
 const UserDashboard = () => {
   const [modal, setmodal] = useState({
     group: false,
@@ -32,7 +35,7 @@ const UserDashboard = () => {
   const [data, setdata] = useState([]);
   const [offset, setoffset] = useState(0);
   const [groupprefix, setgroupprefix] = useState("");
-  const { getAllChannels } = useContext(ChannelContext);
+  const { getdata } = useContext(ChannelContext);
   const channels = useSelector((state) => state.channels);
   useEffect(() => {
     (async () => {
@@ -120,28 +123,96 @@ const UserDashboard = () => {
             </div>
           </div>
           <hr className="my-6" />
-          <div className="bg-white drop-shadow-md p-2">
-            <div className="flex items-center justify-between px-2">
-              <div className="font-semibold text-primary">Your Channels</div>
-              <div className="flex items-center justify-center cursor-pointer  ">
-                <div className="flex items-center justify-center">
-                  <IoAddCircleOutline className="text-secondary" />
+
+          <div className="h-[100vh] bg-white drop-shadow-md rounded-md mb-[60px]">
+            <div className="flex items-start justify-between px-3">
+              <div className="px-3 py-2">
+                <div className="font-semibold text-gray-800">
+                  Recently added devices.
+                </div>
+                <div className="text-gray-400 text-start font-normal">
+                  List of all the channels you have and the ones shared with
+                  you.
+                </div>
+              </div>
+              <div
+                className="w-[fit-content] mt-4 flex items-center cursor-pointer justify-center border-[1px] border-secondary rounded-full p-1"
+                // onClick={() => setaddmetermodal(true)}
+              >
+                <div className="">
+                  <BsPlusCircle
+                    size={20}
+                    color={themeColor.secondary}
+                    style={{}}
+                  />
                 </div>
                 <div
-                  className="text-secondary pl-1"
+                  className="text-secondary pl-2"
                   onClick={() => setmetermodal(true)}
                 >
-                  Add Meter
+                  Add meter
                 </div>
               </div>
             </div>
-            <div className="mt-4 max-w-full">
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-4 px-2 py-2">
-                {data.map((i) => (
-                  <ChannelCard key={i?.alias} data={i} />
+
+            <hr className="border-[0.5px] border-gray-200" />
+            {loading ? (
+              <div className=" p-2 grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 gap-8 mt-4">
+                {Array.from(Array(15)).map((_, i) => (
+                  <div className="h-[190px] drop-shadow-sm" key={i}>
+                    <Skimmer heigth={"100%"} />
+                  </div>
                 ))}
               </div>
-            </div>
+            ) : !data.length ? (
+              <div className="mt-[50px] flex flex-col justify-center items-center px-10">
+                <div className="border-[0.5px] border-gray-500 rounded-md h-[500px] p-10 flex flex-col justify-center items-center w-full">
+                  <div className="h-[100px] w-[100px]">
+                    <img src={ChannelImg} className="w-full h-full " />
+                  </div>
+                  <div className="text-center font-semibold text-gray-700">
+                    You haven't add any device at the moment
+                  </div>
+                  <div
+                    className="w-[fit-content] cursor-pointer mt-4 flex items-center justify-center border-[1px] border-secondary rounded-full p-1"
+                    // onClick={() => setaddmetermodal(true)}
+                  >
+                    <div className="">
+                      <BsPlusCircle
+                        size={20}
+                        color={themeColor.secondary}
+                        style={{}}
+                      />
+                    </div>
+                    <div
+                      className="text-secondary pl-2"
+                      onClick={() => setmetermodal(true)}
+                    >
+                      Add meter
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="mt-4  p-3">
+                <div className="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 gap-8 ">
+                  {data.map((i, index) => (
+                    <ChannelCard key={index} data={i} />
+                  ))}
+                </div>
+                <div className="flex items-center justify-between mt-6">
+                  <div className="">Showing 0 of {data?.length} channels</div>
+                  <div className="flex items-center justify-end">
+                    <div className="flex items-center justify-center border rounded-md p-2 cursor-pointer mx-2 ">
+                      <IoIosArrowBack />
+                    </div>
+                    <div className="flex items-center justify-center border rounded-md p-2 cursor-pointer mx-2">
+                      <IoIosArrowForward />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </Layout>

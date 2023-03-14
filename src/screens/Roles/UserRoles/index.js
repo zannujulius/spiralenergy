@@ -7,10 +7,12 @@ import { toast } from "react-hot-toast";
 import { commandController } from "../../../controllers/CommandController";
 import { channelController } from "../../../controllers/channelController";
 import { getToken } from "../../../utils/token";
+import TableSkimmer from "../../../components/TableSkimmer";
 const UserRoles = () => {
   const [modal, setModal] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [data, setData] = useState([]);
+  const [loading, setloading] = useState(true);
 
   useEffect(() => {
     (async () => {
@@ -24,13 +26,14 @@ const UserRoles = () => {
           toast.error(result.message);
           return;
         }
-        console.log(result?.message?.body, "/result");
         setData(result?.message?.body);
+        setloading(false);
       } catch (err) {
         if (err.response) {
-          return toast.error(err.response.data.response);
+          toast.error(err.response.data.response);
         }
         toast.error(err.message);
+        setloading(false);
       }
     })();
   }, []);
@@ -48,7 +51,11 @@ const UserRoles = () => {
         </div>
         <hr className="border-[0.5px] border-gray-500 my-4" />
         <div className="">
-          <UserRolesTable data={!data.length ? [] : data} />
+          {loading ? (
+            <TableSkimmer entries={10} col={7} />
+          ) : (
+            <UserRolesTable data={!data.length ? [] : data} />
+          )}
         </div>
       </div>
     </Layout>

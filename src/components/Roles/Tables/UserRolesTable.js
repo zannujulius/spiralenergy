@@ -27,7 +27,7 @@ const UserRolesTable = ({ data }) => {
             <td className="text-center">{index + 1}</td>
             <td className="text-center">{i?.creator}</td>
             <td className="text-center">{i?.projectzone}</td>
-            <td className="text-center">{i?.role}</td>
+            <td className="text-center ">{i?.role}</td>
             <td className="text-center">{i?.username}</td>
             <td className="text-center">
               <div className="flex items-center justify-center">
