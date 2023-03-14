@@ -21,6 +21,7 @@ const AllChannels = () => {
   const [page, setpage] = useState(1);
   const [loading, setloading] = useState(true);
   const { allChannels, channelCount } = useSelector((state) => state.channels);
+  
   useEffect(() => {
     (async () => {
       try {
