@@ -30,9 +30,7 @@ export const NavIcon = ({ title, link }) => {
         <RiDashboardFill
           size={21}
           color={
-            location.includes == "/dashboard/systemadmin"
-              ? themeColor.white
-              : "#6c6c6c"
+            location.includes == "/dashboard/systemadmin" ? "#fff" : "#6c6c6c"
           }
         />
       );
@@ -40,11 +38,7 @@ export const NavIcon = ({ title, link }) => {
       return (
         <RiDashboardFill
           size={21}
-          color={
-            location.includes == "/dashboard/systemadmin"
-              ? themeColor.white
-              : "#6c6c6c"
-          }
+          color={location.includes == "/alldevices" ? "#fff" : "#6c6c6c"}
         />
       );
     case "Billing":

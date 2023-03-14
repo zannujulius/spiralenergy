@@ -4,8 +4,8 @@ import { getToken } from "./token";
 const controller = new AbortController();
 
 const instance = axios.create({
-  baseURL: "https://api.app.voltz.africa",
-  // baseURL: "https://api.mms.ampere.plus",
+  // baseURL: "https://api.app.voltz.africa",
+  baseURL: "https://api.mms.ampere.plus",
 });
 
 instance.interceptors.request.use(async (config) => {

@@ -27,7 +27,7 @@ const PowerQualityChart = ({}) => {
             type: "bar",
             label: "current",
             fill: false,
-            backgroundColor: "#ff634730",
+            backgroundColor: "tomato",
             data: Array.from(Array(12)).map(
               (i) => Math.floor(Math.random() * 100) + 1
             ),
@@ -41,7 +41,7 @@ const PowerQualityChart = ({}) => {
             type: "bar",
             label: "frequency",
             fill: false,
-            backgroundColor: "gray",
+            backgroundColor: "orange",
             data: Array.from(Array(12)).map(
               (i) => Math.floor(Math.random() * 100) + 1
             ),

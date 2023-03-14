@@ -58,7 +58,7 @@ const SideNav = () => {
         {role == "Project Manager" && <Tree treeData={data.projectmanager} />}
         {role == "Sales Agent" && <Tree treeData={data.salesagent} />}
         {role == "Customer" && <Tree treeData={data.customers} />}
-        {(role == "User" || !role) && <Tree treeData={data.user} />}
+        {/* {(role == "User" || !role) && <Tree treeData={data.user} />} */}
       </div>
       <div
         className="absolute bottom-6 cursor-pointer w-full"
@@ -66,9 +66,11 @@ const SideNav = () => {
       >
         <div className="flex pl-4">
           <div className="flex items-center justify-center pt-[2px]">
-            <FiLogOut size={18} color="white" />
+            <FiLogOut size={18} color="#6c6c6c" />
           </div>
-          <div className="text-[16px] font-light pl-4 text-white">Log out</div>
+          <div className="text-[14px] font-light pl-4 text-[#6c6c6c]">
+            Log out
+          </div>
         </div>
       </div>
       <div
@@ -131,13 +133,13 @@ const TreeNode = ({ node }) => {
             ? `${link}/${site}`
             : link.replace(":sitename", site)
         }
-        className="flex items-start px-6 py-2 my-8 cursor-pointer"
+        className="flex items-start px-6 py-3 my-3 cursor-pointer"
       >
         <div className="flex items-center justify-center pt-[2px]">
           <NavIcon title={title} link={link} />
         </div>
         <div
-          className="text-[16px] font-light pl-4"
+          className="text-[16px] font-light pl-4 hover:text-white"
           style={{
             color: location.pathname == link ? themeColor.white : "#a3a3a3",
             display:

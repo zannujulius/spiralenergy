@@ -1,12 +1,14 @@
 // import "./style.css";
-
+import { useLocation } from "react-router-dom";
 import SideNav from "../SideNav";
 import SideNav1 from "../SideNav1";
 import TopNav from "../TopNav";
+
 const Layout = ({ children }) => {
+  const location = useLocation();
   return (
     <div className="h-screen w-screen fixed items-start top-0 md:flex lg:flex left-0">
-      <SideNav />
+      {location.pathname !== "/userroles" && <SideNav />}
       <div
         className="h-screen relative top-0 left-0 overflow-y-scroll"
         style={{

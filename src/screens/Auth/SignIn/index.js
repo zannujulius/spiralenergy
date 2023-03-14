@@ -165,29 +165,30 @@ const SignIn = () => {
           await setToken("spiral_registration", 1);
           await setToken("spiral_token", res.data?.sessionid);
           await setToken("spiral_username", username);
-          navigate("/dashboard/systemadmin");
+          // navigate("/dashboard/systemadmin");
 
           // Make request to get User Role
-          // let rolesReq = await axios.post(
-          //   "https://api.mms.ampere.plus/roles/getuserroles",
-          //   {
-          //     callerid: username,
-          //     targetusername: username,
-          //     sessionid: res.data?.sessionid,
-          //   }
-          // );
+          let rolesReq = await axios.post(
+            "https://api.mms.ampere.plus/roles/getuserroles",
+            {
+              callerid: username,
+              targetusername: username,
+              sessionid: res.data?.sessionid,
+            }
+          );
 
-          // let userRoles = rolesReq.data.body;
+          let userRoles = rolesReq.data.body;
 
-          // if (!userRoles.length) {
-          //   await setToken("ampere_role", "Customer");
-          //   navigate("/dashboard");
-          //   setloading(false);
-          // } else {
-          //   await setToken("ampere_role", "");
-          //   navigate("/userroles");
-          //   setloading(false);
-          // }
+          if (!userRoles.length) {
+            await setToken("spiral_role", "Customer");
+            navigate("/dashboard");
+            setloading(false);
+            return;
+          } else {
+            await setToken("spiral_role", "");
+            navigate("/userroles");
+            setloading(false);
+          }
           // controller.abort();
           // rolesReq.data.body.find((item) => item.role == "Customers")
           //   ? navigate("/dashboard/customerdashboard")

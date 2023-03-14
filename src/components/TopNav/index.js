@@ -2,12 +2,18 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { getToken } from "../../utils/token";
+import { toast } from "react-hot-toast";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 const TopNav = () => {
+  const { pathname } = useLocation();
+
   return (
     <div className="flex px-4 items-center justify-between h-[70px] drop-shadow-md bg-white sticky top-0 left-0 ">
       <div className="">
-        <div className="font-semibold">Dashboard</div>
-        <div className="font-light text-gray-500">Meter Overview</div>
+        <div className="font-semibold font-kanit text-[17px]">Dashboard</div>
+        <div className="font-light text-gray-600">Meter Overview</div>
       </div>
       <div className="flex items-start ">
         <div className="items-center flex justify-center pt-1 relative">
@@ -22,9 +28,11 @@ const TopNav = () => {
             <IoMdArrowDropdown size={18} />
           </div>
         </div>
-        <div className="flex items-center justify-center pt-1 px-2 ml-2 cursor-pointer">
-          <HiOutlineMenuAlt3 size={22} />
-        </div>
+        {pathname !== "/userroles" && (
+          <div className="flex items-center justify-center pt-1 px-2 ml-2 cursor-pointer">
+            <HiOutlineMenuAlt3 size={22} />
+          </div>
+        )}
       </div>
     </div>
   );
